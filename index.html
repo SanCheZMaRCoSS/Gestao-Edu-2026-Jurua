@@ -956,6 +956,98 @@
     border-radius: 20px; font-weight: 600; margin-left: auto;
   }
 
+
+  /* ===== SELETOR DE ESCOLAS ===== */
+  .escola-switcher {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 10px;
+    padding: 5px 12px 5px 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    max-width: 220px;
+  }
+  .escola-switcher:hover { background: rgba(255,255,255,0.22); }
+  .escola-switcher-icon { font-size: 1rem; flex-shrink: 0; }
+  .escola-switcher-info { flex: 1; overflow: hidden; }
+  .escola-switcher-nome {
+    font-size: 0.72rem; font-weight: 700; color: white;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    line-height: 1.2;
+  }
+  .escola-switcher-hint {
+    font-size: 0.58rem; color: rgba(255,255,255,0.65);
+    white-space: nowrap;
+  }
+  .escola-switcher-arrow { font-size: 0.6rem; color: rgba(255,255,255,0.7); flex-shrink:0; }
+
+  /* Modal seletor */
+  .perfis-grid {
+    display: flex; flex-direction: column; gap: 8px;
+    max-height: 340px; overflow-y: auto;
+    padding: 4px 0;
+  }
+  .perfil-card {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border-radius: 10px;
+    border: 1.5px solid var(--cinza-border);
+    background: white; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .perfil-card:hover { border-color: var(--verde); background: var(--verde-light); }
+  .perfil-card.ativo {
+    border-color: var(--verde); background: var(--verde-light);
+    box-shadow: 0 0 0 2px rgba(26,107,60,0.15);
+  }
+  .perfil-card-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .perfil-card-info { flex: 1; overflow: hidden; }
+  .perfil-card-nome {
+    font-weight: 700; font-size: 0.88rem; color: var(--cinza-text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .perfil-card-detalhe {
+    font-size: 0.70rem; color: var(--cinza-mid); margin-top: 2px;
+  }
+  .perfil-card-badge {
+    font-size: 0.62rem; font-weight: 700;
+    padding: 2px 8px; border-radius: 20px;
+    background: var(--verde); color: white;
+    flex-shrink: 0;
+  }
+  .perfil-card-ativo-badge {
+    font-size: 0.62rem; font-weight: 700;
+    padding: 2px 8px; border-radius: 20px;
+    background: var(--dourado); color: white;
+    flex-shrink: 0;
+  }
+  .perfil-card-actions {
+    display: flex; gap: 4px; flex-shrink: 0;
+  }
+  .perfil-action-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 0.85rem; padding: 3px 5px; border-radius: 5px;
+    transition: background 0.15s; color: var(--cinza-mid);
+  }
+  .perfil-action-btn:hover { background: rgba(0,0,0,0.08); }
+  .perfil-action-btn.del:hover { background: #f8d7da; color: var(--vermelho); }
+
+  .nova-escola-btn {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px; border-radius: 10px;
+    border: 2px dashed var(--cinza-border);
+    background: var(--off-white); cursor: pointer;
+    color: var(--verde); font-weight: 600; font-size: 0.85rem;
+    transition: all 0.15s; margin-top: 4px;
+  }
+  .nova-escola-btn:hover { border-color: var(--verde); background: var(--verde-light); }
+
+  .perfis-empty {
+    text-align: center; padding: 24px 16px;
+    color: var(--cinza-mid); font-size: 0.82rem;
+  }
+  .perfis-empty .ei { font-size: 2rem; margin-bottom: 8px; }
+
 </style>
 </head>
 <body>
@@ -969,6 +1061,15 @@
       <div class="escola-sub" id="headerSubEscola">Rede Municipal de Ensino · Juruá — Amazonas · Ano Letivo 2026</div>
     </div>
     <div class="header-actions">
+      <!-- Seletor de escola ativo -->
+      <div class="escola-switcher" onclick="openModal('modalSeletor')" title="Trocar de escola">
+        <span class="escola-switcher-icon">🏫</span>
+        <div class="escola-switcher-info">
+          <div class="escola-switcher-nome" id="switcherNome">Escola Municipal São José</div>
+          <div class="escola-switcher-hint">Clique para trocar de escola</div>
+        </div>
+        <span class="escola-switcher-arrow">▼</span>
+      </div>
       <!-- Indicador online/offline + status sincronização -->
       <div id="syncStatus" class="sync-status" title="Status de sincronização com Google Sheets">
         <span id="syncDot" class="sync-dot offline"></span>
@@ -1608,6 +1709,25 @@
 </div>
 
 
+<!-- MODAL: SELETOR DE ESCOLAS -->
+<div class="modal-overlay" id="modalSeletor">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-title">🏫 Selecionar Escola</div>
+    <p style="font-size:0.80rem;color:var(--cinza-mid);margin-bottom:16px;line-height:1.5">
+      Cada escola tem seus próprios dados (turmas, alunos, notas, frequência e diário) armazenados separadamente.
+      Troque de escola a qualquer momento sem perder dados.
+    </p>
+    <div class="perfis-grid" id="perfisList"></div>
+    <div class="nova-escola-btn" onclick="criarNovoPerfil()">
+      <span style="font-size:1.3rem">➕</span>
+      Cadastrar Nova Escola
+    </div>
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn btn-secondary" onclick="closeModal('modalSeletor')">Fechar</button>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL: IMPORTAR BACKUP -->
 <div class="modal-overlay" id="modalImportar">
   <div class="modal">
@@ -1867,8 +1987,21 @@ function confirmarImportacao() {
 
 // ===== INIT =====
 function init() {
-  // 1. Carregar dados locais
-  try {
+  // 0. Migrar dados legados para o sistema de perfis (executado apenas na primeira vez)
+  migrarDadosLegados();
+
+  // 1. Carregar dados do perfil ativo
+  const perfilAtivo = getPerfilAtivo();
+  if (perfilAtivo) {
+    carregarDadosDoPerfil(perfilAtivo);
+  } else {
+    // Sem perfil — criar um
+    criarNovoPerfil();
+    return;
+  }
+
+  // Bloco legado (mantido como fallback)
+  if (false) { try {
     const t = localStorage.getItem('turmas');
     const a = localStorage.getItem('alunos');
     const n = localStorage.getItem('notas');
@@ -1885,7 +2018,7 @@ function init() {
     if (c) configEscola = { ...configEscola, ...JSON.parse(c) };
     nomeEscola      = localStorage.getItem('nomeEscola')      || nomeEscola;
     municipioEscola = localStorage.getItem('municipioEscola') || municipioEscola;
-  } catch(e) {}
+  } catch(e) {} } // fim bloco legado
 
   // 2. Carregar configuração de nuvem e fila
   carregarConfigCloud();
@@ -1932,6 +2065,9 @@ function aplicarNomeEscola() {
   document.getElementById('headerSubEscola').textContent =
     'Rede Municipal de Ensino · ' + municipioEscola + ' · Ano Letivo ' + (configEscola.anoLetivo || '2026');
   document.title = nomeEscola + ' — Sistema de Gestão Escolar';
+  // Atualizar switcher no cabeçalho
+  const sw = document.getElementById('switcherNome');
+  if (sw) sw.textContent = nomeEscola;
 }
 
 function populaTurmaSelects() {
@@ -3328,9 +3464,10 @@ let configEscola = {
 
 
 function openModal(id) {
-  if (id === 'modalEscola') abrirConfigEscola();
+  if (id === 'modalEscola')  abrirConfigEscola();
+  if (id === 'modalSeletor') renderListaPerfis();
   document.getElementById(id).classList.add('open');
-  if (id !== 'modalEscola') atualizarSelectAlunos();
+  if (id !== 'modalEscola' && id !== 'modalSeletor') atualizarSelectAlunos();
 }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
@@ -3366,24 +3503,29 @@ let lastSyncTime = null;
 // ── Salvar LOCAL (sempre funciona, com ou sem internet) ──
 function salvarLocal() {
   try {
-    localStorage.setItem('nomeEscola',      nomeEscola);
-    localStorage.setItem('municipioEscola', municipioEscola);
-    localStorage.setItem('configEscola',    JSON.stringify(configEscola));
-    localStorage.setItem('turmas',          JSON.stringify(turmas));
-    localStorage.setItem('alunos',          JSON.stringify(alunos));
-    localStorage.setItem('notas',           JSON.stringify(notas));
-    localStorage.setItem('frequencia',      JSON.stringify(frequencia));
-    localStorage.setItem('observacoes',     JSON.stringify(observacoes));
-    localStorage.setItem('diario',          JSON.stringify(diario));
-    localStorage.setItem('cloudConfig',     JSON.stringify(cloudConfig));
-    localStorage.setItem('syncQueue',       JSON.stringify(syncQueue));
+    const perfilId = getPerfilAtivo();
+    if (perfilId) {
+      salvarDadosNoPerfil(perfilId);
+    } else {
+      localStorage.setItem('nomeEscola',      nomeEscola);
+      localStorage.setItem('municipioEscola', municipioEscola);
+      localStorage.setItem('configEscola',    JSON.stringify(configEscola));
+      localStorage.setItem('cloudConfig',     JSON.stringify(cloudConfig));
+      localStorage.setItem('turmas',          JSON.stringify(turmas));
+      localStorage.setItem('alunos',          JSON.stringify(alunos));
+      localStorage.setItem('notas',           JSON.stringify(notas));
+      localStorage.setItem('frequencia',      JSON.stringify(frequencia));
+      localStorage.setItem('observacoes',     JSON.stringify(observacoes));
+      localStorage.setItem('diario',          JSON.stringify(diario));
+    }
+    localStorage.setItem('syncQueue', JSON.stringify(syncQueue));
+    const sw = document.getElementById('switcherNome');
+    if (sw) sw.textContent = nomeEscola;
     return true;
   } catch(e) {
     return false;
   }
 }
-
-// ── Salvar = local + enfileirar para nuvem ──
 function salvarTudo() {
   const ok = salvarLocal();
   if (ok) {
@@ -3658,6 +3800,279 @@ function limparConfigCloud() {
 }
 
 function exportarNotas() { exportarDados(); }
+
+
+// ===== PERFIS DE ESCOLA (seletor multi-escola) =====
+//
+// Estrutura no localStorage:
+//   perfis_lista    → array de { id, nome, municipio, codigo, syncUrl, semedUrl, updatedAt }
+//   perfil_ativo    → id do perfil atual
+//   perfil_<id>_*   → dados de cada perfil (turmas, alunos, notas, etc.)
+
+function gerarPerfilId() {
+  return 'p' + Date.now().toString(36) + Math.random().toString(36).substr(2,4);
+}
+
+function carregarListaPerfis() {
+  try {
+    const raw = localStorage.getItem('perfis_lista');
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) { return []; }
+}
+
+function salvarListaPerfis(lista) {
+  try { localStorage.setItem('perfis_lista', JSON.stringify(lista)); } catch(e) {}
+}
+
+function getPerfilAtivo() {
+  return localStorage.getItem('perfil_ativo') || null;
+}
+
+function setPerfilAtivo(id) {
+  localStorage.setItem('perfil_ativo', id);
+}
+
+// Salva o estado atual nos dados do perfil ativo
+function salvarDadosNoPerfil(perfilId) {
+  const pfx = 'perfil_' + perfilId + '_';
+  try {
+    localStorage.setItem(pfx + 'nomeEscola',      nomeEscola);
+    localStorage.setItem(pfx + 'municipioEscola', municipioEscola);
+    localStorage.setItem(pfx + 'configEscola',    JSON.stringify(configEscola));
+    localStorage.setItem(pfx + 'cloudConfig',     JSON.stringify(cloudConfig));
+    localStorage.setItem(pfx + 'turmas',          JSON.stringify(turmas));
+    localStorage.setItem(pfx + 'alunos',          JSON.stringify(alunos));
+    localStorage.setItem(pfx + 'notas',           JSON.stringify(notas));
+    localStorage.setItem(pfx + 'frequencia',      JSON.stringify(frequencia));
+    localStorage.setItem(pfx + 'observacoes',     JSON.stringify(observacoes));
+    localStorage.setItem(pfx + 'diario',          JSON.stringify(diario));
+    // Atualizar metadados do perfil na lista
+    const lista = carregarListaPerfis();
+    const idx = lista.findIndex(p => p.id === perfilId);
+    if (idx >= 0) {
+      lista[idx].nome       = nomeEscola;
+      lista[idx].municipio  = municipioEscola;
+      lista[idx].codigo     = cloudConfig.escolaCode || '';
+      lista[idx].updatedAt  = new Date().toISOString();
+      lista[idx].numAlunos  = alunos.length;
+      lista[idx].numTurmas  = turmas.length;
+      salvarListaPerfis(lista);
+    }
+  } catch(e) { console.error('Erro ao salvar perfil:', e); }
+}
+
+// Carrega os dados de um perfil para a memória
+function carregarDadosDoPerfil(perfilId) {
+  const pfx = 'perfil_' + perfilId + '_';
+  try {
+    const t  = localStorage.getItem(pfx + 'turmas');
+    const a  = localStorage.getItem(pfx + 'alunos');
+    const n  = localStorage.getItem(pfx + 'notas');
+    const f  = localStorage.getItem(pfx + 'frequencia');
+    const o  = localStorage.getItem(pfx + 'observacoes');
+    const d  = localStorage.getItem(pfx + 'diario');
+    const c  = localStorage.getItem(pfx + 'configEscola');
+    const cc = localStorage.getItem(pfx + 'cloudConfig');
+
+    nomeEscola      = localStorage.getItem(pfx + 'nomeEscola')      || 'Escola Municipal';
+    municipioEscola = localStorage.getItem(pfx + 'municipioEscola') || 'Juruá — Amazonas';
+    configEscola    = c  ? { ...configEscola, ...JSON.parse(c)  } : { diretor:'', secretario:'', inep:'', anoLetivo:'2026' };
+    cloudConfig     = cc ? { ...cloudConfig,  ...JSON.parse(cc) } : { scriptUrl:'', semedScriptUrl:'', escolaCode:'', ativo:false, semedAtivo:false };
+    turmas          = t  ? JSON.parse(t)  : [];
+    alunos          = a  ? JSON.parse(a)  : [];
+    notas           = n  ? JSON.parse(n)  : {};
+    frequencia      = f  ? JSON.parse(f)  : {};
+    observacoes     = o  ? JSON.parse(o)  : [];
+    diario          = d  ? JSON.parse(d)  : {};
+    syncQueue       = [];
+  } catch(e) { console.error('Erro ao carregar perfil:', e); }
+}
+
+// Migra os dados do localStorage legado (sem perfis) para um perfil padrão
+function migrarDadosLegados() {
+  const lista = carregarListaPerfis();
+  if (lista.length > 0) return; // já tem perfis — não migrar
+
+  // Verificar se há dados legados
+  const temDados = localStorage.getItem('nomeEscola') || localStorage.getItem('turmas');
+  if (!temDados) return;
+
+  const id = gerarPerfilId();
+  const nomeLeg = localStorage.getItem('nomeEscola') || 'Escola Municipal São José';
+  const munLeg  = localStorage.getItem('municipioEscola') || 'Juruá — Amazonas';
+
+  // Copiar dados legados para o perfil
+  const pfx = 'perfil_' + id + '_';
+  ['nomeEscola','municipioEscola','configEscola','cloudConfig',
+   'turmas','alunos','notas','frequencia','observacoes','diario'].forEach(key => {
+    const val = localStorage.getItem(key);
+    if (val) localStorage.setItem(pfx + key, val);
+  });
+
+  lista.push({
+    id, nome: nomeLeg, municipio: munLeg,
+    codigo: '', updatedAt: new Date().toISOString(),
+    numAlunos: 0, numTurmas: 0
+  });
+  salvarListaPerfis(lista);
+  setPerfilAtivo(id);
+  console.log('Dados legados migrados para perfil:', id);
+}
+
+// Trocar de escola
+function trocarEscola(perfilId) {
+  // 1. Salvar estado atual no perfil ativo
+  const ativo = getPerfilAtivo();
+  if (ativo) salvarDadosNoPerfil(ativo);
+
+  // 2. Carregar o novo perfil
+  setPerfilAtivo(perfilId);
+  carregarDadosDoPerfil(perfilId);
+
+  // 3. Resetar UI
+  turmaAtual = null;
+  alunosFiltrados = [];
+  document.getElementById('selTurma').value = '';
+  document.getElementById('buscaAluno').value = '';
+
+  // 4. Atualizar toda a interface
+  aplicarNomeEscola();
+  populaTurmaSelects();
+  renderTurmasRapidas();
+  atualizarSelectAlunos();
+  renderSecaoAtual();
+  atualizarBadgeDiario();
+  document.getElementById('badgeObs').textContent = observacoes.length;
+  atualizarIndicadorPendente();
+  atualizarCloudPill();
+  setSyncStatus(
+    navigator.onLine ? (cloudConfig.ativo ? 'online' : 'online') : 'offline',
+    navigator.onLine ? (cloudConfig.ativo ? 'Online · Nuvem ativa' : 'Online') : 'Offline'
+  );
+
+  closeModal('modalSeletor');
+  showToast('🏫 Escola carregada: ' + nomeEscola);
+}
+
+// Criar novo perfil em branco
+function criarNovoPerfil() {
+  // Salvar estado atual antes de sair
+  const ativo = getPerfilAtivo();
+  if (ativo) salvarDadosNoPerfil(ativo);
+
+  const id   = gerarPerfilId();
+  const lista = carregarListaPerfis();
+  lista.push({
+    id, nome: 'Nova Escola', municipio: 'Juruá — Amazonas',
+    codigo: '', updatedAt: new Date().toISOString(),
+    numAlunos: 0, numTurmas: 0
+  });
+  salvarListaPerfis(lista);
+  setPerfilAtivo(id);
+
+  // Zerar dados em memória
+  nomeEscola      = 'Nova Escola';
+  municipioEscola = 'Juruá — Amazonas';
+  configEscola    = { diretor:'', secretario:'', inep:'', anoLetivo:'2026' };
+  cloudConfig     = { scriptUrl:'', semedScriptUrl:'', escolaCode:'', ativo:false, semedAtivo:false };
+  turmas          = [];
+  alunos          = [];
+  notas           = {};
+  frequencia      = {};
+  observacoes     = [];
+  diario          = {};
+  syncQueue       = [];
+  turmaAtual      = null;
+  alunosFiltrados = [];
+
+  aplicarNomeEscola();
+  populaTurmaSelects();
+  renderTurmasRapidas();
+  document.getElementById('selTurma').value = '';
+  document.getElementById('badgeObs').textContent = '0';
+  renderSecaoAtual();
+
+  closeModal('modalSeletor');
+
+  // Abrir configuração para nomear a nova escola
+  setTimeout(() => {
+    openModal('modalEscola');
+    showToast('✏️ Configure o nome da nova escola em ⚙️ Escola', 'gold');
+  }, 300);
+}
+
+// Excluir perfil
+function excluirPerfil(perfilId) {
+  const lista = carregarListaPerfis();
+  const perfil = lista.find(p => p.id === perfilId);
+  if (!perfil) return;
+  if (!confirm('Excluir todos os dados de "' + perfil.nome + '"?\n\nEsta ação não pode ser desfeita.')) return;
+
+  // Remover dados do localStorage
+  const pfx = 'perfil_' + perfilId + '_';
+  ['nomeEscola','municipioEscola','configEscola','cloudConfig',
+   'turmas','alunos','notas','frequencia','observacoes','diario'].forEach(key => {
+    localStorage.removeItem(pfx + key);
+  });
+
+  // Remover da lista
+  const novaLista = lista.filter(p => p.id !== perfilId);
+  salvarListaPerfis(novaLista);
+
+  // Se era o perfil ativo, trocar para o primeiro disponível
+  if (getPerfilAtivo() === perfilId) {
+    if (novaLista.length > 0) {
+      trocarEscola(novaLista[0].id);
+    } else {
+      criarNovoPerfil();
+    }
+  }
+  renderListaPerfis();
+  showToast('🗑️ Escola removida.', 'gold');
+}
+
+// Renderizar a lista de perfis no modal
+function renderListaPerfis() {
+  const el    = document.getElementById('perfisList');
+  if (!el) return;
+  const lista = carregarListaPerfis();
+  const ativo = getPerfilAtivo();
+
+  if (lista.length === 0) {
+    el.innerHTML = '<div class="perfis-empty"><div class="ei">🏫</div><div>Nenhuma escola cadastrada ainda.</div></div>';
+    return;
+  }
+
+  el.innerHTML = lista.map(p => {
+    const isAtivo   = p.id === ativo;
+    const dataUpd   = p.updatedAt ? new Date(p.updatedAt).toLocaleDateString('pt-BR') : '';
+    const detalhe   = [
+      p.municipio || '',
+      p.codigo ? 'Cód: ' + p.codigo : '',
+      p.numAlunos > 0 ? p.numAlunos + ' alunos' : '',
+      dataUpd ? 'Atualizado ' + dataUpd : ''
+    ].filter(Boolean).join(' · ');
+
+    return '<div class="perfil-card' + (isAtivo ? ' ativo' : '') + '" onclick="' + (isAtivo ? '' : 'trocarEscola(&#39;' + p.id + '&#39;)') + '">'
+      + '<span class="perfil-card-icon">🏫</span>'
+      + '<div class="perfil-card-info">'
+      + '<div class="perfil-card-nome">' + p.nome + '</div>'
+      + '<div class="perfil-card-detalhe">' + (detalhe || 'Sem dados') + '</div>'
+      + '</div>'
+      + (isAtivo
+        ? '<span class="perfil-card-ativo-badge">✅ Ativa</span>'
+        : '<span class="perfil-card-badge">Acessar</span>')
+      + '<div class="perfil-card-actions" onclick="event.stopPropagation()">'
+      + '<button class="perfil-action-btn del" onclick="excluirPerfil(&#39;' + p.id + '&#39;)" title="Excluir esta escola">🗑️</button>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+// Sobrescrever openModal para renderizar a lista quando abrir o seletor
+const _openModalOriginal = openModal;
+// openModal unificado acima — renderListaPerfis() já integrado
+
 
 function gerarBoletim() {
   showSection('relatorio', null, null);
