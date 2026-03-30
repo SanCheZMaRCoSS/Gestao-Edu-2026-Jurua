@@ -1048,6 +1048,39 @@
   }
   .perfis-empty .ei { font-size: 2rem; margin-bottom: 8px; }
 
+
+  /* ===== EXPORTAR TODAS / CARREGAR DA NUVEM ===== */
+  .btn-header.all-export { background: rgba(201,151,43,0.3); border-color: rgba(201,151,43,0.6); }
+  .btn-header.all-export:hover { background: rgba(201,151,43,0.5); }
+  .btn-header.cloud-load { background: rgba(30,95,166,0.3); border-color: rgba(30,95,166,0.5); }
+  .btn-header.cloud-load:hover { background: rgba(30,95,166,0.5); }
+
+  .cloud-load-perfil {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; border-radius: 10px;
+    border: 1.5px solid var(--cinza-border);
+    background: white; margin-bottom: 8px;
+    transition: all 0.15s;
+  }
+  .cloud-load-perfil:hover { border-color: var(--azul); background: #eff6ff; }
+  .cloud-load-perfil-info { flex:1 }
+  .cloud-load-perfil-nome { font-weight:700; font-size:0.88rem; color:var(--cinza-text); }
+  .cloud-load-perfil-det  { font-size:0.70rem; color:var(--cinza-mid); margin-top:2px; }
+  .cloud-status-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px; border-radius:8px;
+    background: var(--off-white); border:1px solid var(--cinza-border);
+    font-size:0.80rem; margin-bottom:12px;
+  }
+  .progress-bar-wrap {
+    width:100%; background:#e5e7eb; border-radius:6px;
+    height:8px; overflow:hidden; margin:8px 0;
+  }
+  .progress-bar-fill {
+    height:100%; background:var(--verde); border-radius:6px;
+    transition: width 0.4s ease;
+  }
+
 </style>
 </head>
 <body>
@@ -1078,9 +1111,11 @@
       <button class="btn-header" onclick="openModal('modalAluno')">➕ Novo Aluno</button>
       <button class="btn-header" onclick="openModal('modalObs')">📝 Observação</button>
       <button class="btn-header" onclick="openModal('modalEscola')" title="Configurar escola">⚙️ Escola</button>
-      <button class="btn-header" onclick="exportarDados()" title="Exportar backup JSON">📤 Exportar</button>
-      <button class="btn-header" onclick="document.getElementById('inputImportar').click()" title="Importar backup JSON">📥 Importar</button>
+      <button class="btn-header" onclick="exportarDados()" title="Exportar backup desta escola">📤 Exportar</button>
+      <button class="btn-header all-export" onclick="exportarTodasEscolas()" title="Exportar todas as escolas em um único arquivo">📦 Exportar Todas</button>
+      <button class="btn-header" onclick="document.getElementById('inputImportar').click()" title="Importar backup JSON (uma ou todas as escolas)">📥 Importar</button>
       <input type="file" id="inputImportar" accept=".json" style="display:none" onchange="importarDados(event)">
+      <button class="btn-header cloud-load" onclick="openModal('modalCarregarNuvem')" title="Carregar dados do Google Sheets">☁️ Carregar</button>
       <button class="btn-header" onclick="sincronizarAgora()" id="btnSync" title="Sincronizar com Google Sheets agora">🔄 Sincronizar</button>
       <button class="btn-header primary" onclick="salvarTudo()">💾 Salvar</button>
     </div>
@@ -1732,10 +1767,9 @@
 <div class="modal-overlay" id="modalImportar">
   <div class="modal">
     <div class="modal-title">📥 Importar Backup</div>
-    <div id="importPreview" style="margin-bottom:18px"></div>
-    <div style="background:#fff8e1;border:1px solid #f0d080;border-radius:8px;padding:12px 14px;font-size:0.78rem;color:#7a5c00;margin-bottom:18px;line-height:1.6">
-      ⚠️ <strong>Atenção:</strong> Importar um backup <strong>substitui todos os dados atuais</strong> do sistema neste computador/navegador. Esta ação não pode ser desfeita.<br>
-      Recomenda-se exportar um backup antes de importar.
+    <div id="importPreview" style="margin-bottom:14px"></div>
+    <div id="importAviso" style="background:#fff8e1;border:1px solid #f0d080;border-radius:8px;padding:12px 14px;font-size:0.78rem;color:#7a5c00;margin-bottom:14px;line-height:1.6">
+      ⚠️ <strong>Atenção:</strong> Esta ação <strong>não pode ser desfeita</strong>. Recomenda-se exportar antes de importar.
     </div>
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeModal('modalImportar')">Cancelar</button>
@@ -1744,8 +1778,42 @@
   </div>
 </div>
 
+<!-- MODAL: CARREGAR DA NUVEM -->
+<div class="modal-overlay" id="modalCarregarNuvem">
+  <div class="modal" style="max-width:540px">
+    <div class="modal-title">☁️ Carregar Dados do Google Sheets</div>
+    <p style="font-size:0.80rem;color:var(--cinza-mid);margin-bottom:14px;line-height:1.5">
+      Baixa os dados salvos no Google Sheets para este computador. Útil para acessar dados de outra máquina
+      ou recuperar um backup da nuvem.
+    </p>
+
+    <div class="cloud-status-row" id="cloudLoadStatus">
+      <span id="cloudLoadDot" style="width:10px;height:10px;border-radius:50%;background:#9ca3af;flex-shrink:0"></span>
+      <span id="cloudLoadMsg">Selecione uma escola abaixo para carregar.</span>
+    </div>
+
+    <div style="font-size:0.70rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;color:var(--cinza-mid);margin-bottom:8px">
+      Escolas configuradas com Google Sheets
+    </div>
+    <div id="cloudLoadLista" style="max-height:260px;overflow-y:auto;margin-bottom:12px"></div>
+
+    <div class="progress-bar-wrap" id="cloudProgressWrap" style="display:none">
+      <div class="progress-bar-fill" id="cloudProgressBar" style="width:0%"></div>
+    </div>
+
+    <div style="background:#e8f5ee;border-radius:8px;padding:10px 14px;font-size:0.75rem;color:#155724;line-height:1.6;margin-bottom:4px">
+      💡 <strong>Como funciona:</strong> O sistema lê os dados do Google Sheets desta escola e os restaura aqui.
+      Os dados locais desta escola serão <strong>substituídos</strong> pelos dados da nuvem.
+    </div>
+
+    <div class="modal-actions" style="margin-top:14px">
+      <button class="btn btn-secondary" onclick="closeModal('modalCarregarNuvem')">Fechar</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
-<div class="toast" id="toast">✅ Salvo com sucesso!</div>
+<div class="toast" id="toast"><div class="toast" id="toast">✅ Salvo com sucesso!</div>
 
 <script>
 // ===== DATA =====
@@ -1859,82 +1927,164 @@ let secaoAtual = 'frequencia';
 // ===== EXPORTAR / IMPORTAR DADOS =====
 let dadosParaImportar = null;
 
+// ── Exportar escola ativa ──────────────────────────────────
 function exportarDados() {
+  // Garantir que os dados mais recentes estão na memória
+  const perfilId = getPerfilAtivo();
+  if (perfilId) salvarDadosNoPerfil(perfilId);
+
   const dados = {
     _meta: {
-      versao: '1.0',
+      versao: '2.0', tipo: 'escola_individual',
       exportadoEm: new Date().toISOString(),
-      escola: nomeEscola,
-      municipio: municipioEscola
+      escola: nomeEscola, municipio: municipioEscola
     },
-    nomeEscola,
-    municipioEscola,
-    configEscola,
-    turmas,
-    alunos,
-    notas,
-    frequencia,
-    observacoes
+    nomeEscola, municipioEscola, configEscola, cloudConfig,
+    turmas, alunos, notas, frequencia, observacoes, diario
   };
 
-  const json = JSON.stringify(dados, null, 2);
-  const blob = new Blob([json], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-
-  // Nome do arquivo: escola + data
-  const hoje = new Date();
-  const dataStr = hoje.toLocaleDateString('pt-BR').replace(/\//g, '-');
-  const nomeArq = nomeEscola
-    .toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-  a.download = `backup-${nomeArq}-${dataStr}.json`;
-  a.href = url;
-  a.click();
-  URL.revokeObjectURL(url);
-
-  showToast('📤 Backup exportado com sucesso!');
+  const hoje     = new Date();
+  const dataStr  = hoje.toLocaleDateString('pt-BR').replace(/\//g, '-');
+  const nomeArq  = nomeEscola
+    .toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  baixarJSON(dados, 'backup-' + nomeArq + '-' + dataStr + '.json');
+  showToast('📤 Backup exportado: ' + nomeEscola);
 }
 
+// ── Exportar TODAS as escolas num único arquivo ────────────
+function exportarTodasEscolas() {
+  const lista = carregarListaPerfis();
+  if (lista.length === 0) {
+    showToast('⚠️ Nenhuma escola cadastrada para exportar.', 'gold');
+    return;
+  }
+
+  // Salvar estado atual antes de coletar
+  const ativo = getPerfilAtivo();
+  if (ativo) salvarDadosNoPerfil(ativo);
+
+  const perfis = {};
+  lista.forEach(function(p) {
+    const pfx = 'perfil_' + p.id + '_';
+    perfis[p.id] = {
+      meta:           p,
+      nomeEscola:     localStorage.getItem(pfx + 'nomeEscola')      || p.nome,
+      municipioEscola:localStorage.getItem(pfx + 'municipioEscola') || '',
+      configEscola:   tryParse(localStorage.getItem(pfx + 'configEscola'),  {}),
+      cloudConfig:    tryParse(localStorage.getItem(pfx + 'cloudConfig'),   {}),
+      turmas:         tryParse(localStorage.getItem(pfx + 'turmas'),        []),
+      alunos:         tryParse(localStorage.getItem(pfx + 'alunos'),        []),
+      notas:          tryParse(localStorage.getItem(pfx + 'notas'),         {}),
+      frequencia:     tryParse(localStorage.getItem(pfx + 'frequencia'),    {}),
+      observacoes:    tryParse(localStorage.getItem(pfx + 'observacoes'),   []),
+      diario:         tryParse(localStorage.getItem(pfx + 'diario'),        {})
+    };
+  });
+
+  const pacote = {
+    _meta: {
+      versao: '2.0', tipo: 'rede_completa',
+      exportadoEm: new Date().toISOString(),
+      municipio: municipioEscola,
+      totalEscolas: lista.length,
+      escolas: lista.map(function(p){ return p.nome; })
+    },
+    perfilAtivo: ativo,
+    listaPerfis: lista,
+    perfis: perfis
+  };
+
+  const hoje    = new Date();
+  const dataStr = hoje.toLocaleDateString('pt-BR').replace(/\//g, '-');
+  baixarJSON(pacote, 'backup-rede-completa-jurua-' + dataStr + '.json');
+  showToast('📦 ' + lista.length + ' escola(s) exportadas com sucesso!');
+}
+
+// ── Utilitário: download JSON ──────────────────────────────
+function baixarJSON(obj, nomeArquivo) {
+  const blob = new Blob([JSON.stringify(obj, null, 2)], { type:'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.download = nomeArquivo;
+  a.href     = url;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function tryParse(str, fallback) {
+  try { return str ? JSON.parse(str) : fallback; } catch(e) { return fallback; }
+}
+
+// ── Importar arquivo (escola individual OU rede completa) ──
 function importarDados(event) {
   const file = event.target.files[0];
   if (!file) return;
-  // Limpa o input para permitir reimportar o mesmo arquivo
   event.target.value = '';
 
   const reader = new FileReader();
   reader.onload = function(e) {
     try {
       const dados = JSON.parse(e.target.result);
-
-      // Validação básica
-      if (!dados.turmas || !dados.alunos) {
-        showToast('❌ Arquivo inválido ou corrompido!', 'red');
-        return;
-      }
-
       dadosParaImportar = dados;
 
-      // Monta preview
-      const meta = dados._meta || {};
-      const dataExport = meta.exportadoEm
-        ? new Date(meta.exportadoEm).toLocaleString('pt-BR')
-        : 'Desconhecida';
+      const meta    = dados._meta || {};
+      const tipo    = meta.tipo   || 'escola_individual';
+      const dataExp = meta.exportadoEm
+        ? new Date(meta.exportadoEm).toLocaleString('pt-BR') : 'Desconhecida';
 
-      document.getElementById('importPreview').innerHTML = `
-        <div class="import-preview-card">
-          <div style="font-weight:700;color:var(--verde);margin-bottom:8px;font-size:0.88rem">📋 Conteúdo do Backup</div>
-          <div class="pi-row"><span class="pi-label">Escola:</span><span class="pi-value">${dados.nomeEscola || '—'}</span></div>
-          <div class="pi-row"><span class="pi-label">Município:</span><span class="pi-value">${dados.municipioEscola || '—'}</span></div>
-          <div class="pi-row"><span class="pi-label">Exportado em:</span><span class="pi-value">${dataExport}</span></div>
-          <div class="pi-row"><span class="pi-label">Turmas:</span><span class="pi-value">${dados.turmas.length}</span></div>
-          <div class="pi-row"><span class="pi-label">Alunos:</span><span class="pi-value">${dados.alunos.length}</span></div>
-          <div class="pi-row"><span class="pi-label">Observações:</span><span class="pi-value">${(dados.observacoes || []).length}</span></div>
-        </div>`;
+      let previewHTML = '';
+      let avisoHTML   = '';
 
+      if (tipo === 'rede_completa') {
+        // ── Arquivo de rede completa ──
+        const total = meta.totalEscolas || Object.keys(dados.perfis || {}).length;
+        const escolas = (meta.escolas || []).slice(0, 8).join(', ')
+          + (total > 8 ? ' … e mais ' + (total-8) : '');
+
+        previewHTML = '<div class="import-preview-card">'
+          + '<div style="font-weight:700;color:var(--azul);margin-bottom:8px;font-size:0.90rem">📦 Backup de Rede Completa</div>'
+          + '<div class="pi-row"><span class="pi-label">Município:</span><span class="pi-value">' + (meta.municipio||'—') + '</span></div>'
+          + '<div class="pi-row"><span class="pi-label">Exportado em:</span><span class="pi-value">' + dataExp + '</span></div>'
+          + '<div class="pi-row"><span class="pi-label">Total de escolas:</span><span class="pi-value" style="color:var(--azul)">' + total + ' escola(s)</span></div>'
+          + '<div style="margin-top:8px;font-size:0.72rem;color:var(--cinza-mid)">' + escolas + '</div>'
+          + '</div>';
+
+        avisoHTML = '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 14px;font-size:0.78rem;color:#1e3a5f;margin-bottom:14px;line-height:1.6">'
+          + '📦 <strong>Importação de rede completa:</strong> Todos os <strong>' + total + ' perfis de escola</strong> serão adicionados a este computador. '
+          + 'Perfis existentes com o mesmo ID serão atualizados; novos serão criados.'
+          + '</div>';
+
+        document.getElementById('btnConfirmarImport').textContent = '✅ Importar ' + total + ' Escola(s)';
+        document.getElementById('btnConfirmarImport').className = 'btn btn-primary';
+
+      } else {
+        // ── Arquivo de escola individual ──
+        if (!dados.turmas || !dados.alunos) {
+          showToast('❌ Arquivo inválido ou corrompido!', 'red');
+          return;
+        }
+        previewHTML = '<div class="import-preview-card">'
+          + '<div style="font-weight:700;color:var(--verde);margin-bottom:8px;font-size:0.88rem">📋 Backup de Escola Individual</div>'
+          + '<div class="pi-row"><span class="pi-label">Escola:</span><span class="pi-value">' + (dados.nomeEscola||'—') + '</span></div>'
+          + '<div class="pi-row"><span class="pi-label">Município:</span><span class="pi-value">' + (dados.municipioEscola||'—') + '</span></div>'
+          + '<div class="pi-row"><span class="pi-label">Exportado em:</span><span class="pi-value">' + dataExp + '</span></div>'
+          + '<div class="pi-row"><span class="pi-label">Turmas:</span><span class="pi-value">' + (dados.turmas||[]).length + '</span></div>'
+          + '<div class="pi-row"><span class="pi-label">Alunos:</span><span class="pi-value">' + (dados.alunos||[]).length + '</span></div>'
+          + '</div>';
+
+        avisoHTML = '<div style="background:#fff8e1;border:1px solid #f0d080;border-radius:8px;padding:12px 14px;font-size:0.78rem;color:#7a5c00;margin-bottom:14px;line-height:1.6">'
+          + '⚠️ Os dados da escola <strong>' + (dados.nomeEscola||'selecionada') + '</strong> serão importados como um novo perfil neste computador.'
+          + '</div>';
+
+        document.getElementById('btnConfirmarImport').textContent = '✅ Importar Escola';
+        document.getElementById('btnConfirmarImport').className = 'btn btn-primary';
+      }
+
+      document.getElementById('importPreview').innerHTML = previewHTML;
+      document.getElementById('importAviso').innerHTML   = avisoHTML;
       openModal('modalImportar');
+
     } catch(err) {
       showToast('❌ Erro ao ler o arquivo. Verifique se é um backup válido.', 'red');
     }
@@ -1942,47 +2092,237 @@ function importarDados(event) {
   reader.readAsText(file);
 }
 
+// ── Confirmar importação (individual ou rede completa) ──────
 function confirmarImportacao() {
   if (!dadosParaImportar) return;
-  const d = dadosParaImportar;
+  const d    = dadosParaImportar;
+  const meta = d._meta || {};
+  const tipo = meta.tipo || 'escola_individual';
 
-  // Aplica os dados
-  nomeEscola      = d.nomeEscola      || nomeEscola;
-  municipioEscola = d.municipioEscola || municipioEscola;
-  configEscola    = d.configEscola    || configEscola;
-  turmas          = d.turmas          || [];
-  alunos          = d.alunos          || [];
-  notas           = d.notas           || {};
-  frequencia      = d.frequencia      || {};
-  observacoes     = d.observacoes     || [];
-  diario          = d.diario          || {};
+  if (tipo === 'rede_completa') {
+    // Importar todos os perfis
+    const listaExistente = carregarListaPerfis();
+    const mapaExistente  = {};
+    listaExistente.forEach(function(p){ mapaExistente[p.id] = true; });
 
-  // Salva tudo no localStorage
+    const novaLista = d.listaPerfis || [];
+    const perfisMap = d.perfis      || {};
+
+    novaLista.forEach(function(p) {
+      const pfx    = 'perfil_' + p.id + '_';
+      const dados  = perfisMap[p.id] || {};
+
+      // Gravar dados no localStorage
+      localStorage.setItem(pfx+'nomeEscola',      dados.nomeEscola      || p.nome);
+      localStorage.setItem(pfx+'municipioEscola', dados.municipioEscola || '');
+      localStorage.setItem(pfx+'configEscola',    JSON.stringify(dados.configEscola  || {}));
+      localStorage.setItem(pfx+'cloudConfig',     JSON.stringify(dados.cloudConfig   || {}));
+      localStorage.setItem(pfx+'turmas',          JSON.stringify(dados.turmas        || []));
+      localStorage.setItem(pfx+'alunos',          JSON.stringify(dados.alunos        || []));
+      localStorage.setItem(pfx+'notas',           JSON.stringify(dados.notas         || {}));
+      localStorage.setItem(pfx+'frequencia',      JSON.stringify(dados.frequencia    || {}));
+      localStorage.setItem(pfx+'observacoes',     JSON.stringify(dados.observacoes   || []));
+      localStorage.setItem(pfx+'diario',          JSON.stringify(dados.diario        || {}));
+
+      // Adicionar à lista se ainda não existir
+      if (!mapaExistente[p.id]) listaExistente.push(p);
+      else {
+        // Atualizar metadados
+        const idx = listaExistente.findIndex(function(x){ return x.id === p.id; });
+        if (idx >= 0) listaExistente[idx] = p;
+      }
+    });
+
+    salvarListaPerfis(listaExistente);
+
+    // Ativar o mesmo perfil que estava ativo na origem
+    if (d.perfilAtivo) setPerfilAtivo(d.perfilAtivo);
+
+    dadosParaImportar = null;
+    closeModal('modalImportar');
+
+    // Recarregar interface com o perfil ativo
+    const pa = getPerfilAtivo();
+    if (pa) { carregarDadosDoPerfil(pa); }
+    aplicarNomeEscola();
+    populaTurmaSelects();
+    renderTurmasRapidas();
+    document.getElementById('selTurma').value = '';
+    document.getElementById('badgeObs').textContent = observacoes.length;
+    turmaAtual = null; alunosFiltrados = [];
+    renderSecaoAtual();
+
+    showToast('✅ ' + novaLista.length + ' escola(s) importadas com sucesso!');
+
+  } else {
+    // Importar escola individual — adicionar como novo perfil
+    const id    = gerarPerfilId();
+    const lista = carregarListaPerfis();
+    const pfx   = 'perfil_' + id + '_';
+
+    localStorage.setItem(pfx+'nomeEscola',      d.nomeEscola      || 'Escola');
+    localStorage.setItem(pfx+'municipioEscola', d.municipioEscola || '');
+    localStorage.setItem(pfx+'configEscola',    JSON.stringify(d.configEscola  || {}));
+    localStorage.setItem(pfx+'cloudConfig',     JSON.stringify(d.cloudConfig   || {}));
+    localStorage.setItem(pfx+'turmas',          JSON.stringify(d.turmas        || []));
+    localStorage.setItem(pfx+'alunos',          JSON.stringify(d.alunos        || []));
+    localStorage.setItem(pfx+'notas',           JSON.stringify(d.notas         || {}));
+    localStorage.setItem(pfx+'frequencia',      JSON.stringify(d.frequencia    || {}));
+    localStorage.setItem(pfx+'observacoes',     JSON.stringify(d.observacoes   || []));
+    localStorage.setItem(pfx+'diario',          JSON.stringify(d.diario        || {}));
+
+    lista.push({
+      id, nome: d.nomeEscola || 'Escola',
+      municipio: d.municipioEscola || '',
+      codigo:    (d.cloudConfig||{}).escolaCode || '',
+      updatedAt: new Date().toISOString(),
+      numAlunos: (d.alunos||[]).length,
+      numTurmas: (d.turmas||[]).length
+    });
+    salvarListaPerfis(lista);
+
+    // Salvar estado do perfil atual antes de trocar
+    const atualId = getPerfilAtivo();
+    if (atualId) salvarDadosNoPerfil(atualId);
+
+    // Ativar o perfil recém-importado
+    trocarEscola(id);
+    dadosParaImportar = null;
+    closeModal('modalImportar');
+    showToast('✅ Escola "' + (d.nomeEscola||'') + '" importada e ativada!');
+  }
+}
+
+
+// ===== CARREGAR DA NUVEM (Google Sheets → Sistema) =====
+
+function abrirCarregarNuvem() {
+  const lista = carregarListaPerfis();
+  const el    = document.getElementById('cloudLoadLista');
+  if (!el) return;
+
+  const comScript = lista.filter(function(p) {
+    const pfx = 'perfil_' + p.id + '_';
+    const cc  = tryParse(localStorage.getItem(pfx + 'cloudConfig'), {});
+    return cc.scriptUrl && cc.scriptUrl.startsWith('https://script.google.com');
+  });
+
+  if (comScript.length === 0) {
+    el.innerHTML = '<div style="padding:16px;text-align:center;color:var(--cinza-mid);font-size:0.82rem">'
+      + '⚠️ Nenhuma escola está configurada com Google Sheets ainda.<br>'
+      + 'Configure em <strong>⚙️ Escola → URL do Script</strong>.</div>';
+    return;
+  }
+
+  el.innerHTML = comScript.map(function(p) {
+    const pfx = 'perfil_' + p.id + '_';
+    const cc  = tryParse(localStorage.getItem(pfx + 'cloudConfig'), {});
+    return '<div class="cloud-load-perfil">'
+      + '<span style="font-size:1.3rem">🏫</span>'
+      + '<div class="cloud-load-perfil-info">'
+      + '<div class="cloud-load-perfil-nome">' + p.nome + '</div>'
+      + '<div class="cloud-load-perfil-det">' + (p.municipio||'') + (cc.escolaCode ? ' · Cód: '+cc.escolaCode : '') + '</div>'
+      + '</div>'
+      + '<button class="btn btn-sm" style="background:var(--azul);color:white;border:none"'
+      + ' data-pid="' + p.id + '" onclick="carregarEscolaDaNuvem(this.dataset.pid)">☁️ Carregar</button>'
+      + '</div>';
+  }).join('');
+}
+
+async function carregarEscolaDaNuvem(perfilId) {
+  const pfx = 'perfil_' + perfilId + '_';
+  const cc  = tryParse(localStorage.getItem(pfx + 'cloudConfig'), {});
+
+  if (!cc.scriptUrl) {
+    setCloudLoadStatus('error', '❌ Esta escola não tem URL do script configurada.');
+    return;
+  }
+  if (!navigator.onLine) {
+    setCloudLoadStatus('error', '❌ Sem conexão com a internet.');
+    return;
+  }
+
+  setCloudLoadStatus('loading', '🔄 Conectando ao Google Sheets…');
+  document.getElementById('cloudProgressWrap').style.display = '';
+  setProgressBar(20);
+
   try {
-    localStorage.setItem('nomeEscola',      nomeEscola);
-    localStorage.setItem('municipioEscola', municipioEscola);
-    localStorage.setItem('configEscola',    JSON.stringify(configEscola));
-    localStorage.setItem('turmas',          JSON.stringify(turmas));
-    localStorage.setItem('alunos',          JSON.stringify(alunos));
-    localStorage.setItem('notas',           JSON.stringify(notas));
-    localStorage.setItem('frequencia',      JSON.stringify(frequencia));
-    localStorage.setItem('observacoes',     JSON.stringify(observacoes));
-    localStorage.setItem('diario',          JSON.stringify(diario));
-  } catch(e) {}
+    // Solicitar dados ao script
+    const body = JSON.stringify({ action: 'LOAD', escolaCode: cc.escolaCode || '' });
+    setProgressBar(40);
 
-  // Reseta estado da UI
-  turmaAtual      = null;
-  alunosFiltrados = [];
-  dadosParaImportar = null;
+    const resp = await fetch(cc.scriptUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: body
+    });
 
-  aplicarNomeEscola();
-  populaTurmaSelects();
-  renderTurmasRapidas();
-  document.getElementById('selTurma').value = '';
-  document.getElementById('badgeObs').textContent = observacoes.length;
+    setProgressBar(70);
+    const resultado = await resp.json();
+    setProgressBar(90);
 
-  closeModal('modalImportar');
-  showToast('✅ Backup importado com sucesso!');
+    if (!resultado.ok) {
+      // Script não implementa LOAD ainda — avisar claramente
+      setCloudLoadStatus('warn',
+        '⚠️ O script desta escola ainda não suporta carregamento reverso (LOAD). '
+        + 'Use 📥 Importar com o arquivo JSON exportado de outro computador. '
+        + 'Para habilitar o LOAD, atualize o google-apps-script.js com a versão mais recente.');
+      setProgressBar(0);
+      document.getElementById('cloudProgressWrap').style.display = 'none';
+      return;
+    }
+
+    if (resultado.dados) {
+      // Salvar os dados recebidos no perfil
+      const d = resultado.dados;
+      localStorage.setItem(pfx+'nomeEscola',      d.nomeEscola      || '');
+      localStorage.setItem(pfx+'municipioEscola', d.municipioEscola || '');
+      localStorage.setItem(pfx+'configEscola',    JSON.stringify(d.configEscola  || {}));
+      localStorage.setItem(pfx+'turmas',          JSON.stringify(d.turmas        || []));
+      localStorage.setItem(pfx+'alunos',          JSON.stringify(d.alunos        || []));
+      localStorage.setItem(pfx+'notas',           JSON.stringify(d.notas         || {}));
+      localStorage.setItem(pfx+'frequencia',      JSON.stringify(d.frequencia    || {}));
+      localStorage.setItem(pfx+'observacoes',     JSON.stringify(d.observacoes   || []));
+      localStorage.setItem(pfx+'diario',          JSON.stringify(d.diario        || {}));
+
+      setProgressBar(100);
+      setCloudLoadStatus('ok', '✅ Dados carregados com sucesso! Alunos: '
+        + (d.alunos||[]).length + ' | Turmas: ' + (d.turmas||[]).length);
+
+      // Se era o perfil ativo, recarregar a interface
+      if (perfilId === getPerfilAtivo()) {
+        carregarDadosDoPerfil(perfilId);
+        aplicarNomeEscola();
+        populaTurmaSelects();
+        renderTurmasRapidas();
+        turmaAtual = null; alunosFiltrados = [];
+        renderSecaoAtual();
+      }
+      showToast('☁️ Dados carregados do Google Sheets!');
+    }
+
+  } catch(err) {
+    setCloudLoadStatus('error', '❌ Erro ao conectar: ' + err.message
+      + '. Verifique a URL do script e a conexão com a internet.');
+    setProgressBar(0);
+    document.getElementById('cloudProgressWrap').style.display = 'none';
+  }
+}
+
+function setCloudLoadStatus(tipo, msg) {
+  const dot = document.getElementById('cloudLoadDot');
+  const txt = document.getElementById('cloudLoadMsg');
+  if (!dot || !txt) return;
+  const cores = { ok:'#22c55e', error:'#ef4444', warn:'#f59e0b', loading:'#3b82f6' };
+  dot.style.background = cores[tipo] || '#9ca3af';
+  if (tipo === 'loading') dot.style.animation = 'pulse-sync 1s infinite';
+  else dot.style.animation = '';
+  txt.textContent = msg;
+}
+
+function setProgressBar(pct) {
+  const el = document.getElementById('cloudProgressBar');
+  if (el) el.style.width = pct + '%';
 }
 
 // ===== INIT =====
@@ -3464,10 +3804,12 @@ let configEscola = {
 
 
 function openModal(id) {
-  if (id === 'modalEscola')  abrirConfigEscola();
-  if (id === 'modalSeletor') renderListaPerfis();
+  if (id === 'modalEscola')        abrirConfigEscola();
+  if (id === 'modalSeletor')       renderListaPerfis();
+  if (id === 'modalCarregarNuvem') abrirCarregarNuvem();
   document.getElementById(id).classList.add('open');
-  if (id !== 'modalEscola' && id !== 'modalSeletor') atualizarSelectAlunos();
+  if (id !== 'modalEscola' && id !== 'modalSeletor' && id !== 'modalCarregarNuvem')
+    atualizarSelectAlunos();
 }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
