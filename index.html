@@ -6,10 +6,10 @@
 <title>Sistema de Gestão Escolar — Rede Municipal de Juruá/AM · 2026</title>
 <style>
   :root {
-    --verde: #1a6b3c;
-    --verde-mid: #2d9158;
-    --verde-light: #e8f5ee;
-    --verde-glow: #52c27a;
+    --azul-principal: #1a5276;
+    --azul-mid: #21618c;
+    --azul-light: #eaf2fb;
+    --azul-glow: #5dade2;
     --dourado: #c9972b;
     --dourado-light: #fdf3e0;
     --off-white: #f7f6f2;
@@ -37,7 +37,7 @@
 
   /* ===== HEADER ===== */
   .header {
-    background: linear-gradient(135deg, #0f4a28 0%, var(--verde) 55%, #1f7d44 100%);
+    background: linear-gradient(135deg, #0e3460 0%, var(--azul-principal) 55%, #1f6191 100%);
     color: white;
     padding: 0;
     box-shadow: 0 4px 24px rgba(0,0,0,0.25);
@@ -156,17 +156,17 @@
     color: var(--cinza-text);
   }
   .sidebar-item:last-child { border-bottom: none; }
-  .sidebar-item:hover { background: var(--verde-light); color: var(--verde); }
+  .sidebar-item:hover { background: var(--azul-light); color: var(--azul-principal); }
   .sidebar-item.active {
-    background: var(--verde-light);
-    color: var(--verde);
+    background: var(--azul-light);
+    color: var(--azul-principal);
     font-weight: 600;
-    border-left: 3px solid var(--verde);
+    border-left: 3px solid var(--azul-principal);
   }
   .sidebar-item .icon { font-size: 1rem; width: 20px; text-align: center; }
   .sidebar-item .badge {
     margin-left: auto;
-    background: var(--verde);
+    background: var(--azul-principal);
     color: white;
     font-size: 0.6rem;
     padding: 2px 7px;
@@ -196,7 +196,7 @@
     outline: none;
     transition: border-color 0.2s;
   }
-  select:focus, input:focus { border-color: var(--verde); }
+  select:focus, input:focus { border-color: var(--azul-principal); }
 
   /* ===== MAIN CONTENT ===== */
   .main-content { display: flex; flex-direction: column; gap: 20px; }
@@ -228,11 +228,11 @@
     justify-content: center;
     gap: 6px;
   }
-  .tab:hover { background: var(--verde-light); color: var(--verde); }
+  .tab:hover { background: var(--azul-light); color: var(--azul-principal); }
   .tab.active {
-    background: var(--verde);
+    background: var(--azul-principal);
     color: white;
-    box-shadow: 0 2px 8px rgba(26, 107, 60, 0.35);
+    box-shadow: 0 2px 8px rgba(26, 82, 118, 0.35);
   }
 
   /* CARDS */
@@ -255,7 +255,7 @@
     font-family: Georgia, serif;
     font-size: 1.05rem;
     font-weight: 600;
-    color: var(--verde);
+    color: var(--azul-principal);
     flex: 1;
   }
   .card-subtitle {
@@ -294,7 +294,7 @@
     color: var(--cinza-text);
     line-height: 1;
   }
-  .stat-value.green { color: var(--verde); }
+  .stat-value.green { color: var(--azul-principal); }
   .stat-value.gold { color: var(--dourado); }
   .stat-value.red { color: var(--vermelho); }
   .stat-desc { font-size: 0.72rem; color: var(--cinza-mid); }
@@ -308,7 +308,7 @@
     font-size: 0.80rem;
   }
   thead {
-    background: linear-gradient(to right, #f0f9f4, #e8f5ee);
+    background: linear-gradient(to right, #eaf2fb, #eaf2fb);
   }
   th {
     padding: 10px 12px;
@@ -316,10 +316,10 @@
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--verde);
+    color: var(--azul-principal);
     font-weight: 700;
     white-space: nowrap;
-    border-bottom: 2px solid var(--verde-light);
+    border-bottom: 2px solid var(--azul-light);
   }
   th.left { text-align: left; }
   td {
@@ -344,11 +344,11 @@
     overflow: hidden;
   }
   .freq-fill { height: 100%; border-radius: 3px; }
-  .freq-good .freq-fill { background: var(--verde-glow); }
+  .freq-good .freq-fill { background: var(--azul-glow); }
   .freq-warn .freq-fill { background: var(--dourado); }
   .freq-bad .freq-fill { background: var(--vermelho); }
   .freq-pct { font-family: Consolas, 'Courier New', monospace; font-size: 0.75rem; font-weight: 500; }
-  .freq-good .freq-pct { color: var(--verde); }
+  .freq-good .freq-pct { color: var(--azul-principal); }
   .freq-warn .freq-pct { color: var(--dourado); }
   .freq-bad .freq-pct { color: var(--vermelho); }
 
@@ -367,8 +367,8 @@
     transition: all 0.2s;
   }
   .nota-input:focus {
-    border-color: var(--verde);
-    background: var(--verde-light);
+    border-color: var(--azul-principal);
+    background: var(--azul-light);
     outline: none;
   }
 
@@ -380,7 +380,7 @@
     border-radius: 20px;
     display: inline-block;
   }
-  .media-ap { background: #d4edda; color: #155724; }
+  .media-ap { background: #d6eaf8; color: #154360; }
   .media-rec { background: #fff3cd; color: #856404; }
   .media-rep { background: #f8d7da; color: #721c24; }
 
@@ -392,7 +392,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  .sit-ap { background: #d4edda; color: #155724; }
+  .sit-ap { background: #d6eaf8; color: #154360; }
   .sit-rec { background: #fff3cd; color: #856404; }
   .sit-rep { background: #f8d7da; color: #721c24; }
 
@@ -420,7 +420,7 @@
     font-family: Georgia, serif;
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--verde);
+    color: var(--azul-principal);
     margin-bottom: 20px;
     display: flex;
     align-items: center;
@@ -437,7 +437,7 @@
     color: var(--cinza-text); resize: vertical; min-height: 80px; outline: none;
     transition: border-color 0.2s;
   }
-  textarea:focus { border-color: var(--verde); }
+  textarea:focus { border-color: var(--azul-principal); }
 
   .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
 
@@ -451,8 +451,8 @@
     cursor: pointer;
     transition: all 0.2s;
   }
-  .btn-primary { background: var(--verde); color: white; }
-  .btn-primary:hover { background: #155c33; }
+  .btn-primary { background: var(--azul-principal); color: white; }
+  .btn-primary:hover { background: #154360; }
   .btn-secondary { background: var(--off-white); color: var(--cinza-text); border: 1.5px solid var(--cinza-border); }
   .btn-secondary:hover { background: var(--cinza-border); }
   .btn-danger { background: var(--vermelho); color: white; }
@@ -472,14 +472,14 @@
   /* OBSERVAÇÕES */
   .obs-list { display: flex; flex-direction: column; gap: 10px; padding: 16px 20px; }
   .obs-item {
-    background: var(--verde-light);
-    border-left: 3px solid var(--verde);
+    background: var(--azul-light);
+    border-left: 3px solid var(--azul-principal);
     border-radius: 0 8px 8px 0;
     padding: 10px 14px;
     font-size: 0.82rem;
   }
   .obs-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-  .obs-aluno { font-weight: 600; color: var(--verde); }
+  .obs-aluno { font-weight: 600; color: var(--azul-principal); }
   .obs-data { font-size: 0.68rem; color: var(--cinza-mid); font-family: Consolas, 'Courier New', monospace; }
   .obs-tipo {
     font-size: 0.6rem;
@@ -490,7 +490,7 @@
   }
   .obs-pedagogica { background: #cfe2ff; color: #0a58ca; }
   .obs-comportamental { background: #fff3cd; color: #856404; }
-  .obs-familiar { background: #d4edda; color: #155724; }
+  .obs-familiar { background: #d6eaf8; color: #154360; }
   .obs-saude { background: #f8d7da; color: #721c24; }
   .obs-text { color: var(--cinza-text); line-height: 1.5; }
 
@@ -516,7 +516,7 @@
     justify-content: center;
     font-family: Consolas, 'Courier New', monospace;
   }
-  .dia-btn.presente { background: var(--verde-light); border-color: var(--verde); color: var(--verde); }
+  .dia-btn.presente { background: var(--azul-light); border-color: var(--azul-principal); color: var(--azul-principal); }
   .dia-btn.falta { background: #f8d7da; border-color: #f5c6cb; color: var(--vermelho); }
   .dia-btn.falta-just { background: #fff3cd; border-color: #ffc107; color: #856404; }
 
@@ -533,7 +533,7 @@
   }
   .legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.68rem; color: var(--cinza-mid); }
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .legend-green { background: var(--verde-glow); }
+  .legend-green { background: var(--azul-glow); }
   .legend-gold { background: var(--dourado); }
   .legend-red { background: var(--vermelho); }
   .legend-blue { background: var(--azul); }
@@ -558,8 +558,8 @@
     background: white; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
     font-family: Consolas, 'Courier New', monospace; font-weight: 500; color: var(--cinza-text); transition: all 0.15s;
   }
-  .page-btn:hover { border-color: var(--verde); color: var(--verde); }
-  .page-btn.active { background: var(--verde); border-color: var(--verde); color: white; }
+  .page-btn:hover { border-color: var(--azul-principal); color: var(--azul-principal); }
+  .page-btn.active { background: var(--azul-principal); border-color: var(--azul-principal); color: white; }
   .page-info { font-size: 0.72rem; color: var(--cinza-mid); margin-left: 4px; }
 
   /* TOOLTIP */
@@ -585,7 +585,7 @@
   /* NOTIFICAÇÃO */
   .toast {
     position: fixed; bottom: 24px; right: 24px;
-    background: var(--verde); color: white;
+    background: var(--azul-principal); color: white;
     padding: 12px 20px; border-radius: 10px;
     font-size: 0.82rem; font-weight: 500;
     box-shadow: var(--shadow-lg);
@@ -606,16 +606,16 @@
   /* HEADER TURMA INFO */
   .turma-info-bar {
     display: flex; align-items: center; gap: 16px;
-    background: var(--verde-light);
-    border: 1px solid rgba(26,107,60,0.15);
+    background: var(--azul-light);
+    border: 1px solid rgba(26,82,118,0.15);
     border-radius: 10px;
     padding: 12px 18px;
     font-size: 0.78rem;
   }
   .turma-info-item { display: flex; align-items: center; gap: 5px; }
   .turma-info-label { color: var(--cinza-mid); }
-  .turma-info-value { font-weight: 600; color: var(--verde); }
-  .turma-info-divider { width: 1px; height: 20px; background: rgba(26,107,60,0.2); }
+  .turma-info-value { font-weight: 600; color: var(--azul-principal); }
+  .turma-info-divider { width: 1px; height: 20px; background: rgba(26,82,118,0.2); }
 
   /* PROGRESSO BIMESTRAL */
   .bimestre-tabs {
@@ -632,8 +632,8 @@
     border-bottom: 2px solid transparent;
     transition: all 0.2s; margin-bottom: -1px;
   }
-  .bim-tab:hover { color: var(--verde); }
-  .bim-tab.active { color: var(--verde); border-bottom-color: var(--verde); font-weight: 600; }
+  .bim-tab:hover { color: var(--azul-principal); }
+  .bim-tab.active { color: var(--azul-principal); border-bottom-color: var(--azul-principal); font-weight: 600; }
 
   .empty-state {
     padding: 40px 20px; text-align: center;
@@ -643,18 +643,18 @@
 
   /* MEDIA FINAL DESTAQUE */
   .mf-destaque {
-    background: linear-gradient(135deg, #f0f9f4 0%, #e8f5ee 100%);
-    border: 2px solid rgba(26,107,60,0.15);
+    background: linear-gradient(135deg, #eaf2fb 0%, #eaf2fb 100%);
+    border: 2px solid rgba(26,82,118,0.15);
   }
   .mf-col-final {
-    background: rgba(26,107,60,0.06);
-    border-left: 2px solid rgba(26,107,60,0.15);
+    background: rgba(26,82,118,0.06);
+    border-left: 2px solid rgba(26,82,118,0.15);
   }
 
   /* ===== BACKUP / EXPORT-IMPORT ===== */
   .backup-info-box {
-    background: var(--verde-light);
-    border: 1px solid rgba(26,107,60,0.2);
+    background: var(--azul-light);
+    border: 1px solid rgba(26,82,118,0.2);
     border-radius: 10px;
     padding: 14px 16px;
     font-size: 0.80rem;
@@ -662,7 +662,7 @@
     line-height: 1.6;
     margin-bottom: 6px;
   }
-  .backup-info-box strong { color: var(--verde); }
+  .backup-info-box strong { color: var(--azul-principal); }
   .import-preview-card {
     background: var(--off-white);
     border: 1.5px solid var(--cinza-border);
@@ -673,7 +673,7 @@
   }
   .import-preview-card .pi-row { display:flex; gap:8px; }
   .import-preview-card .pi-label { color: var(--cinza-mid); min-width:120px; }
-  .import-preview-card .pi-value { font-weight:600; color: var(--verde); }
+  .import-preview-card .pi-value { font-weight:600; color: var(--azul-principal); }
   .btn-header.export-btn { background: rgba(201,151,43,0.25); border-color: rgba(201,151,43,0.5); }
   .btn-header.export-btn:hover { background: rgba(201,151,43,0.4); }
   .btn-header.import-btn { background: rgba(30,95,166,0.2); border-color: rgba(30,95,166,0.4); }
@@ -797,17 +797,17 @@
     font-size: 0.78rem;
     transition: background 0.15s;
   }
-  .ano-check-item:hover { background: var(--verde-light); }
+  .ano-check-item:hover { background: var(--azul-light); }
   .ano-check-item input[type=checkbox] {
-    width: 15px; height: 15px; accent-color: var(--verde);
+    width: 15px; height: 15px; accent-color: var(--azul-principal);
     cursor: pointer; flex-shrink: 0;
   }
   .anos-selecionados-preview {
     display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; min-height: 22px;
   }
   .ano-tag {
-    background: var(--verde-light); color: var(--verde);
-    border: 1px solid rgba(26,107,60,0.25);
+    background: var(--azul-light); color: var(--azul-principal);
+    border: 1px solid rgba(26,82,118,0.25);
     font-size: 0.68rem; font-weight: 600;
     padding: 2px 9px; border-radius: 20px;
   }
@@ -859,7 +859,7 @@
   .diario-disc-tag {
     font-size: 0.68rem; font-weight: 700;
     padding: 3px 10px; border-radius: 20px;
-    background: var(--verde-light); color: var(--verde);
+    background: var(--azul-light); color: var(--azul-principal);
     white-space: nowrap; flex-shrink: 0;
   }
   .diario-disc-tag.eja   { background: #e0e7ff; color: #3730a3; }
@@ -903,7 +903,7 @@
     transition: border-color 0.2s; line-height: 1.5;
     background: white;
   }
-  .diario-textarea:focus { border-color: var(--verde); }
+  .diario-textarea:focus { border-color: var(--azul-principal); }
   .diario-textarea.conteudo { min-height: 70px; }
   .diario-textarea.objetivo { min-height: 50px; }
 
@@ -912,7 +912,7 @@
 
   .diario-salvo-badge {
     display: inline-flex; align-items: center; gap: 4px;
-    font-size: 0.65rem; color: var(--verde); font-weight: 600;
+    font-size: 0.65rem; color: var(--azul-principal); font-weight: 600;
     opacity: 0; transition: opacity 0.3s;
   }
   .diario-salvo-badge.show { opacity: 1; }
@@ -932,13 +932,13 @@
     font-family: Consolas, 'Courier New', monospace;
     transition: all 0.15s; background: white; color: var(--cinza-text);
   }
-  .diario-day-pill:hover { border-color: var(--verde); color: var(--verde); }
+  .diario-day-pill:hover { border-color: var(--azul-principal); color: var(--azul-principal); }
   .diario-day-pill.com-registro {
-    background: var(--verde-light); border-color: var(--verde);
-    color: var(--verde);
+    background: var(--azul-light); border-color: var(--azul-principal);
+    color: var(--azul-principal);
   }
   .diario-day-pill.selecionado {
-    background: var(--verde); border-color: var(--verde); color: white;
+    background: var(--azul-principal); border-color: var(--azul-principal); color: white;
   }
 
   .ano-grupo-header {
@@ -951,7 +951,7 @@
 
   /* Badge contador */
   .badge-diario {
-    background: var(--verde); color: white;
+    background: var(--azul-principal); color: white;
     font-size: 0.6rem; padding: 2px 7px;
     border-radius: 20px; font-weight: 600; margin-left: auto;
   }
@@ -995,10 +995,10 @@
     background: white; cursor: pointer;
     transition: all 0.15s;
   }
-  .perfil-card:hover { border-color: var(--verde); background: var(--verde-light); }
+  .perfil-card:hover { border-color: var(--azul-principal); background: var(--azul-light); }
   .perfil-card.ativo {
-    border-color: var(--verde); background: var(--verde-light);
-    box-shadow: 0 0 0 2px rgba(26,107,60,0.15);
+    border-color: var(--azul-principal); background: var(--azul-light);
+    box-shadow: 0 0 0 2px rgba(26,82,118,0.15);
   }
   .perfil-card-icon { font-size: 1.4rem; flex-shrink: 0; }
   .perfil-card-info { flex: 1; overflow: hidden; }
@@ -1012,7 +1012,7 @@
   .perfil-card-badge {
     font-size: 0.62rem; font-weight: 700;
     padding: 2px 8px; border-radius: 20px;
-    background: var(--verde); color: white;
+    background: var(--azul-principal); color: white;
     flex-shrink: 0;
   }
   .perfil-card-ativo-badge {
@@ -1037,10 +1037,10 @@
     padding: 12px 14px; border-radius: 10px;
     border: 2px dashed var(--cinza-border);
     background: var(--off-white); cursor: pointer;
-    color: var(--verde); font-weight: 600; font-size: 0.85rem;
+    color: var(--azul-principal); font-weight: 600; font-size: 0.85rem;
     transition: all 0.15s; margin-top: 4px;
   }
-  .nova-escola-btn:hover { border-color: var(--verde); background: var(--verde-light); }
+  .nova-escola-btn:hover { border-color: var(--azul-principal); background: var(--azul-light); }
 
   .perfis-empty {
     text-align: center; padding: 24px 16px;
@@ -1077,7 +1077,7 @@
     height:8px; overflow:hidden; margin:8px 0;
   }
   .progress-bar-fill {
-    height:100%; background:var(--verde); border-radius:6px;
+    height:100%; background:var(--azul-principal); border-radius:6px;
     transition: width 0.4s ease;
   }
 
@@ -1592,7 +1592,7 @@
         <label class="field-label">Tipo de Organização</label>
         <div style="display:flex;gap:10px;margin-top:4px">
           <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;cursor:pointer;padding:7px 14px;border-radius:8px;border:1.5px solid var(--cinza-border);transition:all 0.15s" id="lblRegular">
-            <input type="radio" name="tipoTurma" id="tipoRegular" value="regular" checked onchange="onTipoTurmaChange()" style="accent-color:var(--verde)">
+            <input type="radio" name="tipoTurma" id="tipoRegular" value="regular" checked onchange="onTipoTurmaChange()" style="accent-color:var(--azul-principal)">
             📚 Seriada (um ano/série)
           </label>
           <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;cursor:pointer;padding:7px 14px;border-radius:8px;border:1.5px solid var(--cinza-border);transition:all 0.15s" id="lblMulti">
@@ -1801,7 +1801,7 @@
       <div class="progress-bar-fill" id="cloudProgressBar" style="width:0%"></div>
     </div>
 
-    <div style="background:#e8f5ee;border-radius:8px;padding:10px 14px;font-size:0.75rem;color:#155724;line-height:1.6;margin-bottom:4px">
+    <div style="background:#eaf2fb;border-radius:8px;padding:10px 14px;font-size:0.75rem;color:#154360;line-height:1.6;margin-bottom:4px">
       💡 <strong>Como funciona:</strong> O sistema lê os dados do Google Sheets desta escola e os restaura aqui.
       Os dados locais desta escola serão <strong>substituídos</strong> pelos dados da nuvem.
     </div>
@@ -2065,7 +2065,7 @@ function importarDados(event) {
           return;
         }
         previewHTML = '<div class="import-preview-card">'
-          + '<div style="font-weight:700;color:var(--verde);margin-bottom:8px;font-size:0.88rem">📋 Backup de Escola Individual</div>'
+          + '<div style="font-weight:700;color:var(--azul-principal);margin-bottom:8px;font-size:0.88rem">📋 Backup de Escola Individual</div>'
           + '<div class="pi-row"><span class="pi-label">Escola:</span><span class="pi-value">' + (dados.nomeEscola||'—') + '</span></div>'
           + '<div class="pi-row"><span class="pi-label">Município:</span><span class="pi-value">' + (dados.municipioEscola||'—') + '</span></div>'
           + '<div class="pi-row"><span class="pi-label">Exportado em:</span><span class="pi-value">' + dataExp + '</span></div>'
@@ -2230,80 +2230,132 @@ function abrirCarregarNuvem() {
 }
 
 async function carregarEscolaDaNuvem(perfilId) {
-  const pfx = 'perfil_' + perfilId + '_';
-  const cc  = tryParse(localStorage.getItem(pfx + 'cloudConfig'), {});
+  const pfx  = 'perfil_' + perfilId + '_';
+  const cc   = tryParse(localStorage.getItem(pfx + 'cloudConfig'), {});
+  const lista = carregarListaPerfis();
+  const perfil = lista.find(function(p){ return p.id === perfilId; }) || {};
 
-  if (!cc.scriptUrl) {
-    setCloudLoadStatus('error', '❌ Esta escola não tem URL do script configurada.');
+  // Determinar qual URL usar: script da escola ou script da SEMED
+  const urlEscola = cc.scriptUrl      || '';
+  const urlSemed  = cc.semedScriptUrl || '';
+  const codigo    = cc.escolaCode     || '';
+  const urlUsar   = urlEscola.startsWith('https://script.google.com') ? urlEscola
+                  : urlSemed.startsWith('https://script.google.com')  ? urlSemed
+                  : '';
+  const acaoUsar  = urlEscola.startsWith('https://script.google.com') ? 'LOAD'
+                  : 'LOAD_ESCOLA';
+
+  if (!urlUsar) {
+    setCloudLoadStatus('error', '❌ Esta escola não tem URL do script configurada. Configure em ⚙️ Escola.');
     return;
   }
   if (!navigator.onLine) {
-    setCloudLoadStatus('error', '❌ Sem conexão com a internet.');
+    setCloudLoadStatus('error', '❌ Sem conexão com a internet. Verifique o Wi-Fi ou dados móveis.');
     return;
   }
 
   setCloudLoadStatus('loading', '🔄 Conectando ao Google Sheets…');
   document.getElementById('cloudProgressWrap').style.display = '';
-  setProgressBar(20);
+  setProgressBar(15);
 
   try {
-    // Solicitar dados ao script
-    const body = JSON.stringify({ action: 'LOAD', escolaCode: cc.escolaCode || '' });
-    setProgressBar(40);
+    setCloudLoadStatus('loading', '🔄 Enviando requisição…');
+    setProgressBar(35);
 
-    const resp = await fetch(cc.scriptUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: body
+    const body = JSON.stringify({
+      action:     acaoUsar,
+      escolaCode: codigo
     });
 
-    setProgressBar(70);
-    const resultado = await resp.json();
-    setProgressBar(90);
+    // Nota: precisamos usar mode:'cors' para receber a resposta.
+    // Se o script estiver configurado como "Qualquer pessoa", funciona.
+    const resp = await fetch(urlUsar, {
+      method:  'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body:    body
+    });
 
-    if (!resultado.ok) {
-      // Script não implementa LOAD ainda — avisar claramente
+    setProgressBar(65);
+
+    let resultado;
+    try {
+      resultado = await resp.json();
+    } catch(parseErr) {
+      // Modo no-cors retorna opaque — não conseguimos ler a resposta
+      // Neste caso, orientar o usuário a usar o modo CORS
       setCloudLoadStatus('warn',
-        '⚠️ O script desta escola ainda não suporta carregamento reverso (LOAD). '
-        + 'Use 📥 Importar com o arquivo JSON exportado de outro computador. '
-        + 'Para habilitar o LOAD, atualize o google-apps-script.js com a versão mais recente.');
+        '⚠️ O script retornou uma resposta não legível. '
+        + 'Verifique se o script está publicado com acesso "Qualquer pessoa" '
+        + 'e se a versão mais recente do google-apps-script.js foi instalada.');
       setProgressBar(0);
       document.getElementById('cloudProgressWrap').style.display = 'none';
       return;
     }
 
-    if (resultado.dados) {
-      // Salvar os dados recebidos no perfil
-      const d = resultado.dados;
-      localStorage.setItem(pfx+'nomeEscola',      d.nomeEscola      || '');
-      localStorage.setItem(pfx+'municipioEscola', d.municipioEscola || '');
-      localStorage.setItem(pfx+'configEscola',    JSON.stringify(d.configEscola  || {}));
-      localStorage.setItem(pfx+'turmas',          JSON.stringify(d.turmas        || []));
-      localStorage.setItem(pfx+'alunos',          JSON.stringify(d.alunos        || []));
-      localStorage.setItem(pfx+'notas',           JSON.stringify(d.notas         || {}));
-      localStorage.setItem(pfx+'frequencia',      JSON.stringify(d.frequencia    || {}));
-      localStorage.setItem(pfx+'observacoes',     JSON.stringify(d.observacoes   || []));
-      localStorage.setItem(pfx+'diario',          JSON.stringify(d.diario        || {}));
+    setProgressBar(85);
 
-      setProgressBar(100);
-      setCloudLoadStatus('ok', '✅ Dados carregados com sucesso! Alunos: '
-        + (d.alunos||[]).length + ' | Turmas: ' + (d.turmas||[]).length);
-
-      // Se era o perfil ativo, recarregar a interface
-      if (perfilId === getPerfilAtivo()) {
-        carregarDadosDoPerfil(perfilId);
-        aplicarNomeEscola();
-        populaTurmaSelects();
-        renderTurmasRapidas();
-        turmaAtual = null; alunosFiltrados = [];
-        renderSecaoAtual();
-      }
-      showToast('☁️ Dados carregados do Google Sheets!');
+    if (!resultado.ok) {
+      setCloudLoadStatus('warn',
+        '⚠️ ' + (resultado.msg || 'Resposta inesperada do script.') + ' '
+        + 'Verifique se o google-apps-script.js instalado é a versão mais recente (v2026 com LOAD).');
+      setProgressBar(0);
+      document.getElementById('cloudProgressWrap').style.display = 'none';
+      return;
     }
 
+    if (!resultado.dados) {
+      setCloudLoadStatus('warn', '⚠️ Script respondeu OK mas sem dados. Verifique se há dados na planilha.');
+      setProgressBar(0);
+      return;
+    }
+
+    // ── Aplicar os dados recebidos no perfil ──
+    const d = resultado.dados;
+    localStorage.setItem(pfx+'nomeEscola',      d.nomeEscola      || perfil.nome || '');
+    localStorage.setItem(pfx+'municipioEscola', d.municipioEscola || '');
+    localStorage.setItem(pfx+'configEscola',    JSON.stringify(d.configEscola  || {}));
+    localStorage.setItem(pfx+'turmas',          JSON.stringify(d.turmas        || []));
+    localStorage.setItem(pfx+'alunos',          JSON.stringify(d.alunos        || []));
+    localStorage.setItem(pfx+'notas',           JSON.stringify(d.notas         || {}));
+    localStorage.setItem(pfx+'frequencia',      JSON.stringify(d.frequencia    || {}));
+    localStorage.setItem(pfx+'observacoes',     JSON.stringify(d.observacoes   || []));
+    localStorage.setItem(pfx+'diario',          JSON.stringify(d.diario        || {}));
+
+    // Atualizar metadados do perfil
+    const idx = lista.findIndex(function(p){ return p.id === perfilId; });
+    if (idx >= 0) {
+      lista[idx].nome       = d.nomeEscola || lista[idx].nome;
+      lista[idx].updatedAt  = new Date().toISOString();
+      lista[idx].numAlunos  = (d.alunos||[]).length;
+      lista[idx].numTurmas  = (d.turmas||[]).length;
+      salvarListaPerfis(lista);
+    }
+
+    setProgressBar(100);
+    setCloudLoadStatus('ok',
+      '✅ Dados carregados! '
+      + (d.alunos||[]).length + ' aluno(s) · '
+      + (d.turmas||[]).length + ' turma(s) · '
+      + Object.keys(d.notas||{}).length + ' reg. de notas');
+
+    // Se era o perfil ativo, recarregar a interface
+    if (perfilId === getPerfilAtivo()) {
+      carregarDadosDoPerfil(perfilId);
+      aplicarNomeEscola();
+      populaTurmaSelects();
+      renderTurmasRapidas();
+      turmaAtual = null; alunosFiltrados = [];
+      renderSecaoAtual();
+      document.getElementById('badgeObs').textContent = observacoes.length;
+      atualizarBadgeDiario();
+    }
+
+    showToast('☁️ Dados carregados do Google Sheets: ' + (d.nomeEscola || ''));
+
   } catch(err) {
-    setCloudLoadStatus('error', '❌ Erro ao conectar: ' + err.message
-      + '. Verifique a URL do script e a conexão com a internet.');
+    setCloudLoadStatus('error',
+      '❌ Falha na conexão: ' + err.message
+      + '. Verifique se tem internet e se a URL do script está correta.');
     setProgressBar(0);
     document.getElementById('cloudProgressWrap').style.display = 'none';
   }
@@ -2441,13 +2493,13 @@ function renderTurmasRapidas() {
         <span class="badge">${count}</span>
         <span style="position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;gap:3px" onclick="event.stopPropagation()">
           <button onclick="abrirEditarTurma(${t.id})" title="Editar turma"
-            style="border:none;background:rgba(26,107,60,0.12);color:var(--verde);width:22px;height:22px;border-radius:4px;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center">✏️</button>
+            style="border:none;background:rgba(26,82,118,0.12);color:var(--azul-principal);width:22px;height:22px;border-radius:4px;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center">✏️</button>
           <button onclick="excluirTurma(${t.id})" title="Excluir turma"
             style="border:none;background:rgba(192,57,43,0.10);color:var(--vermelho);width:22px;height:22px;border-radius:4px;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center">🗑️</button>
         </span>
       </div>`;
   });
-  el.innerHTML += `<div class="sidebar-item" onclick="abrirNovaTurma()" style="color:var(--verde);border-top:1px dashed var(--cinza-border)">
+  el.innerHTML += `<div class="sidebar-item" onclick="abrirNovaTurma()" style="color:var(--azul-principal);border-top:1px dashed var(--cinza-border)">
     <span class="icon">➕</span> Nova Turma
   </div>`;
 }
@@ -2586,9 +2638,9 @@ function renderFrequencia() {
       <td class="left"><span class="matricula">${a.matricula}</span></td>
       ${diasShow.map(d => {
         const v = frequencia[a.id][mes][d] || 'P';
-        const cor = v === 'P' ? '#2d9158' : v === 'F' ? '#c0392b' : '#b8860b';
+        const cor = v === 'P' ? '#21618c' : v === 'F' ? '#c0392b' : '#b8860b';
         return `<td>
-          <button onclick="toggleFreq(${a.id},${mes},${d})" style="border:none;background:${v==='P'?'#e8f5ee':v==='F'?'#f8d7da':'#fff3cd'};color:${cor};width:26px;height:26px;border-radius:5px;font-weight:700;font-size:0.72rem;cursor:pointer;transition:all 0.15s" data-tip="${v==='P'?'Presente':v==='F'?'Falta':'Justificada'}">${v}</button>
+          <button onclick="toggleFreq(${a.id},${mes},${d})" style="border:none;background:${v==='P'?'#eaf2fb':v==='F'?'#f8d7da':'#fff3cd'};color:${cor};width:26px;height:26px;border-radius:5px;font-weight:700;font-size:0.72rem;cursor:pointer;transition:all 0.15s" data-tip="${v==='P'?'Presente':v==='F'?'Falta':'Justificada'}">${v}</button>
         </td>`;
       }).join('')}
       <td>
@@ -2719,7 +2771,7 @@ function renderNotas() {
   if (seg === 'EI') { // Apenas Educação Infantil pura (não EIEF)
     const niveisEI = ['NS — Não Satisfatório', 'PS — Parcialmente Satisfatório', 'S — Satisfatório', 'PD — Plenamente Desenvolvido'];
     let html = `
-      <div style="padding:12px 16px 4px;font-size:0.75rem;background:#e8f5ee;border-bottom:1px solid #c3e6cb;color:#155724;line-height:1.6">
+      <div style="padding:12px 16px 4px;font-size:0.75rem;background:#eaf2fb;border-bottom:1px solid #aed6f1;color:#154360;line-height:1.6">
         🌱 <strong>Educação Infantil — Avaliação Qualitativa</strong><br>
         Conforme a BNCC e a LDB, a Educação Infantil não utiliza notas nem reprova. O desenvolvimento da criança é registrado por meio de
         descritores qualitativos nos cinco Campos de Experiência, observando suas interações, brincadeiras e vivências.
@@ -2767,7 +2819,7 @@ function renderNotas() {
   let html = `<table><thead>
     <tr>
       <th class="left" rowspan="2" style="min-width:170px;vertical-align:middle">Aluno</th>
-      ${discs.map(d => `<th colspan="2" data-tip="${d}" style="min-width:120px;border-bottom:1px solid rgba(26,107,60,0.15)">${d.length > 10 ? d.substr(0,9)+'…' : d}</th>`).join('')}
+      ${discs.map(d => `<th colspan="2" data-tip="${d}" style="min-width:120px;border-bottom:1px solid rgba(26,82,118,0.15)">${d.length > 10 ? d.substr(0,9)+'…' : d}</th>`).join('')}
       <th rowspan="2" style="vertical-align:middle;min-width:80px">${mediaLabel}</th>
     </tr>
     <tr>
@@ -2844,7 +2896,7 @@ function renderNotas() {
     html = `<table><thead>
       <tr>
         <th class="left" rowspan="2" style="min-width:170px;vertical-align:middle">Aluno</th>
-        ${discHeader.map(d=>`<th colspan="2" data-tip="${d}" style="min-width:120px;border-bottom:1px solid rgba(26,107,60,0.15)">${d.length>10?d.substr(0,9)+'…':d}</th>`).join('')}
+        ${discHeader.map(d=>`<th colspan="2" data-tip="${d}" style="min-width:120px;border-bottom:1px solid rgba(26,82,118,0.15)">${d.length>10?d.substr(0,9)+'…':d}</th>`).join('')}
         <th rowspan="2" style="vertical-align:middle;min-width:80px">${mALabel}</th>
       </tr>
       <tr>
@@ -2942,7 +2994,7 @@ function renderMediasFinal() {
     }
 
     let html = `
-      <div style="padding:10px 16px 4px;font-size:0.73rem;background:#e8f5ee;border-bottom:1px solid #c3e6cb;color:#155724">
+      <div style="padding:10px 16px 4px;font-size:0.73rem;background:#eaf2fb;border-bottom:1px solid #aed6f1;color:#154360">
         🌱 <strong>Educação Infantil — Parecer Descritivo Final</strong> · Síntese dos registros dos quatro bimestres nos Campos de Experiência
       </div>
       <table class="mf-table"><thead><tr>
@@ -3143,7 +3195,7 @@ function renderRelatorio() {
   }
 
   let html = `
-    <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:2px solid var(--verde-light)">
+    <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:2px solid var(--azul-light)">
       <div style="display:flex;gap:20px;flex-wrap:wrap">
         <div><strong>Turma:</strong> ${turmaAtual.nome}</div>
         <div><strong>Ano/Série:</strong> ${turmaAtual.ano}</div>
@@ -3154,13 +3206,13 @@ function renderRelatorio() {
       </div>
     </div>
     <table style="width:100%;border-collapse:collapse;font-size:0.78rem;margin-bottom:20px">
-      <thead style="background:var(--verde-light)">
+      <thead style="background:var(--azul-light)">
         <tr>
-          <th style="padding:8px 10px;text-align:left;border:1px solid #ccc;color:var(--verde)">Aluno</th>
-          ${discs.map(d => `<th style="padding:8px 6px;text-align:center;border:1px solid #ccc;color:var(--verde);font-size:0.6rem">${d.substr(0,8)}</th>`).join('')}
-          <th style="padding:8px 10px;text-align:center;border:1px solid #ccc;color:var(--verde)">Méd. Final</th>
-          <th style="padding:8px 10px;text-align:center;border:1px solid #ccc;color:var(--verde)">Freq.</th>
-          <th style="padding:8px 10px;text-align:center;border:1px solid #ccc;color:var(--verde)">Situação</th>
+          <th style="padding:8px 10px;text-align:left;border:1px solid #ccc;color:var(--azul-principal)">Aluno</th>
+          ${discs.map(d => `<th style="padding:8px 6px;text-align:center;border:1px solid #ccc;color:var(--azul-principal);font-size:0.6rem">${d.substr(0,8)}</th>`).join('')}
+          <th style="padding:8px 10px;text-align:center;border:1px solid #ccc;color:var(--azul-principal)">Méd. Final</th>
+          <th style="padding:8px 10px;text-align:center;border:1px solid #ccc;color:var(--azul-principal)">Freq.</th>
+          <th style="padding:8px 10px;text-align:center;border:1px solid #ccc;color:var(--azul-principal)">Situação</th>
         </tr>
       </thead>
       <tbody>`;
@@ -3170,14 +3222,14 @@ function renderRelatorio() {
     const cells = discs.map(d => {
       const mf = calcMediaFinal(a.id, d);
       if (mf !== null) { soma += mf; count++; }
-      const cor = mf === null ? '#999' : mf >= 5 ? '#155724' : mf >= 3 ? '#856404' : '#721c24';
+      const cor = mf === null ? '#999' : mf >= 5 ? '#154360' : mf >= 3 ? '#856404' : '#721c24';
       return `<td style="padding:6px;text-align:center;border:1px solid #ddd;font-weight:600;color:${cor}">${mf !== null ? mf.toFixed(1) : '—'}</td>`;
     }).join('');
 
     const media = count ? soma/count : null;
     const freq = getFreqAluno(a.id);
     const sit = !count ? '—' : freq.pct < 75 ? 'Rep. Faltas' : media >= 5 ? 'Aprovado' : media >= 3 ? 'Rec. Final' : 'Reprovado';
-    const sitColor = sit === 'Aprovado' ? '#155724' : sit === 'Rec. Final' ? '#856404' : '#721c24';
+    const sitColor = sit === 'Aprovado' ? '#154360' : sit === 'Rec. Final' ? '#856404' : '#721c24';
 
     html += `<tr>
       <td style="padding:6px 10px;border:1px solid #ddd">${a.nome}</td>
@@ -3192,9 +3244,9 @@ function renderRelatorio() {
   html += `</tbody></table>`;
 
   if (obs.length > 0) {
-    html += `<h3 style="font-family:'Playfair Display',serif;color:var(--verde);margin-bottom:12px">Observações da Turma</h3>`;
+    html += `<h3 style="font-family:'Playfair Display',serif;color:var(--azul-principal);margin-bottom:12px">Observações da Turma</h3>`;
     obs.forEach(o => {
-      html += `<div style="border-left:3px solid var(--verde);padding:8px 12px;margin-bottom:8px;background:var(--verde-light);border-radius:0 6px 6px 0;font-size:0.78rem">
+      html += `<div style="border-left:3px solid var(--azul-principal);padding:8px 12px;margin-bottom:8px;background:var(--azul-light);border-radius:0 6px 6px 0;font-size:0.78rem">
         <strong>${o.alunoNome}</strong> · <em>${o.tipo}</em> · ${o.data ? new Date(o.data+'T00:00:00').toLocaleDateString('pt-BR') : ''}
         <br>${o.texto}
       </div>`;
@@ -3267,7 +3319,7 @@ function onTipoTurmaChange() {
   const isMulti = document.getElementById('tipoMulti').checked;
   document.getElementById('areaAnoRegular').style.display = isMulti ? 'none' : '';
   document.getElementById('areaAnosMulti').style.display  = isMulti ? '' : 'none';
-  document.getElementById('lblRegular').style.borderColor = isMulti ? 'var(--cinza-border)' : 'var(--verde)';
+  document.getElementById('lblRegular').style.borderColor = isMulti ? 'var(--cinza-border)' : 'var(--azul-principal)';
   document.getElementById('lblMulti').style.borderColor   = isMulti ? '#7c3aed' : 'var(--cinza-border)';
   if (isMulti) renderAnosCheckboxes();
 }
@@ -3753,7 +3805,7 @@ function renderRelatorioDiario() {
   }
 
   var html = '';
-  html += '<h2 style="color:var(--verde);margin-bottom:4px">' + turma.nome + '</h2>';
+  html += '<h2 style="color:var(--azul-principal);margin-bottom:4px">' + turma.nome + '</h2>';
   html += '<p style="font-size:0.8rem;color:#666;margin-bottom:20px">'
        + (turma.prof || '') + ' \u00B7 ' + turma.turno + ' \u00B7 Ano Letivo 2026</p>';
 
@@ -3770,12 +3822,12 @@ function renderRelatorioDiario() {
     datas.forEach(function(data) {
       var dataFmt = data.split('-').reverse().join('/');
       html += '<div style="margin-bottom:16px;page-break-inside:avoid">';
-      html += '<div style="background:#e8f5ee;padding:6px 12px;border-radius:4px;font-weight:700;font-size:0.82rem;margin-bottom:8px">\uD83D\uDCC5 ' + dataFmt + '</div>';
+      html += '<div style="background:#eaf2fb;padding:6px 12px;border-radius:4px;font-weight:700;font-size:0.82rem;margin-bottom:8px">\uD83D\uDCC5 ' + dataFmt + '</div>';
       grupo.discs.forEach(function(disc) {
         var e = (gd[data] || {})[disc];
         if (!e || !e.conteudo) return;
-        html += '<div style="margin-left:12px;margin-bottom:10px;border-left:3px solid #c3e6cb;padding-left:10px">';
-        html += '<div style="font-weight:700;font-size:0.80rem;color:#1a6b3c;margin-bottom:4px">' + disc + '</div>';
+        html += '<div style="margin-left:12px;margin-bottom:10px;border-left:3px solid #aed6f1;padding-left:10px">';
+        html += '<div style="font-weight:700;font-size:0.80rem;color:#1a5276;margin-bottom:4px">' + disc + '</div>';
         if (e.conteudo)  html += '<div style="font-size:0.78rem;margin-bottom:3px"><strong>Conte\u00FAdo:</strong> ' + escHtml(e.conteudo) + '</div>';
         if (e.objetivo)  html += '<div style="font-size:0.78rem;margin-bottom:3px"><strong>Objetivos/Habilidades:</strong> ' + escHtml(e.objetivo) + '</div>';
         if (e.recursos)  html += '<div style="font-size:0.78rem;margin-bottom:3px"><strong>Recursos Did\u00E1ticos:</strong> ' + escHtml(e.recursos) + '</div>';
@@ -3822,7 +3874,7 @@ document.querySelectorAll('.modal-overlay').forEach(m => {
 function showToast(msg, type = 'green') {
   const t = document.getElementById('toast');
   t.textContent = msg;
-  t.style.background = type === 'gold' ? 'var(--dourado)' : type === 'red' ? 'var(--vermelho)' : 'var(--verde)';
+  t.style.background = type === 'gold' ? 'var(--dourado)' : type === 'red' ? 'var(--vermelho)' : 'var(--azul-principal)';
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
