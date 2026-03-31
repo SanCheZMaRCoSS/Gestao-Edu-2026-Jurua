@@ -6,10 +6,10 @@
 <title>Sistema de Gestão Escolar — Rede Municipal de Juruá/AM · 2026</title>
 <style>
   :root {
-    --azul-principal: #1a5276;
-    --azul-mid: #21618c;
-    --azul-light: #eaf2fb;
-    --azul-glow: #5dade2;
+    --azul-principal: #2471a3;
+    --azul-mid: #2e86c1;
+    --azul-light: #ebf5fb;
+    --azul-glow: #7fb3d3;
     --dourado: #c9972b;
     --dourado-light: #fdf3e0;
     --off-white: #f7f6f2;
@@ -37,7 +37,7 @@
 
   /* ===== HEADER ===== */
   .header {
-    background: linear-gradient(135deg, #0e3460 0%, var(--azul-principal) 55%, #1f6191 100%);
+    background: linear-gradient(135deg, #1a5276 0%, var(--azul-principal) 55%, #2980b9 100%);
     color: white;
     padding: 0;
     box-shadow: 0 4px 24px rgba(0,0,0,0.25);
@@ -84,28 +84,68 @@
   }
 
   .header-actions {
-    display: flex; gap: 10px; align-items: center;
+    display: flex; gap: 6px; align-items: center;
+    flex-wrap: nowrap;
   }
 
+  /* Divisor visual entre grupos de botões */
+  .btn-group-sep {
+    width: 1px; height: 28px;
+    background: rgba(255,255,255,0.2);
+    flex-shrink: 0; margin: 0 4px;
+  }
+
+  /* Botão padrão do header — todos mesma altura e estilo base */
   .btn-header {
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.13);
+    border: 1px solid rgba(255,255,255,0.28);
     color: white;
-    padding: 8px 16px;
+    padding: 0 14px;
+    height: 34px;
     border-radius: 8px;
-    font-family: system-ui, sans-serif;
-    font-size: 0.78rem;
+    font-family: system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+    font-size: 0.75rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s;
-    display: flex; align-items: center; gap: 6px;
+    transition: all 0.18s;
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 5px; white-space: nowrap;
+    min-width: 0;
   }
-  .btn-header:hover { background: rgba(255,255,255,0.25); }
+  .btn-header:hover {
+    background: rgba(255,255,255,0.24);
+    border-color: rgba(255,255,255,0.45);
+  }
+  .btn-header:active { transform: scale(0.97); }
+
+  /* Grupo 1 — Cadastro (azul translúcido levemente mais vivo) */
+  .btn-header.cadastro {
+    background: rgba(255,255,255,0.18);
+    border-color: rgba(255,255,255,0.35);
+  }
+
+  /* Grupo 2 — Backup (tom âmbar/dourado suave) */
+  .btn-header.backup {
+    background: rgba(201,151,43,0.22);
+    border-color: rgba(201,151,43,0.45);
+  }
+  .btn-header.backup:hover { background: rgba(201,151,43,0.38); }
+
+  /* Grupo 3 — Nuvem (tom ciano suave) */
+  .btn-header.nuvem {
+    background: rgba(93,188,226,0.2);
+    border-color: rgba(93,188,226,0.4);
+  }
+  .btn-header.nuvem:hover { background: rgba(93,188,226,0.35); }
+
+  /* Botão primário — Salvar (dourado sólido, destaque) */
   .btn-header.primary {
     background: var(--dourado);
     border-color: var(--dourado);
+    font-weight: 700;
+    padding: 0 18px;
   }
-  .btn-header.primary:hover { background: #b8862a; }
+  .btn-header.primary:hover { background: #b8862a; border-color: #b8862a; }
 
   /* ===== LAYOUT ===== */
   .app-layout {
@@ -232,7 +272,7 @@
   .tab.active {
     background: var(--azul-principal);
     color: white;
-    box-shadow: 0 2px 8px rgba(26, 82, 118, 0.35);
+    box-shadow: 0 2px 8px rgba(36, 113, 163, 0.35);
   }
 
   /* CARDS */
@@ -308,7 +348,7 @@
     font-size: 0.80rem;
   }
   thead {
-    background: linear-gradient(to right, #eaf2fb, #eaf2fb);
+    background: linear-gradient(to right, #ebf5fb, #ebf5fb);
   }
   th {
     padding: 10px 12px;
@@ -380,7 +420,7 @@
     border-radius: 20px;
     display: inline-block;
   }
-  .media-ap { background: #d6eaf8; color: #154360; }
+  .media-ap { background: #d6eaf8; color: #1a5276; }
   .media-rec { background: #fff3cd; color: #856404; }
   .media-rep { background: #f8d7da; color: #721c24; }
 
@@ -392,7 +432,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  .sit-ap { background: #d6eaf8; color: #154360; }
+  .sit-ap { background: #d6eaf8; color: #1a5276; }
   .sit-rec { background: #fff3cd; color: #856404; }
   .sit-rep { background: #f8d7da; color: #721c24; }
 
@@ -452,7 +492,7 @@
     transition: all 0.2s;
   }
   .btn-primary { background: var(--azul-principal); color: white; }
-  .btn-primary:hover { background: #154360; }
+  .btn-primary:hover { background: #1a5276; }
   .btn-secondary { background: var(--off-white); color: var(--cinza-text); border: 1.5px solid var(--cinza-border); }
   .btn-secondary:hover { background: var(--cinza-border); }
   .btn-danger { background: var(--vermelho); color: white; }
@@ -490,7 +530,7 @@
   }
   .obs-pedagogica { background: #cfe2ff; color: #0a58ca; }
   .obs-comportamental { background: #fff3cd; color: #856404; }
-  .obs-familiar { background: #d6eaf8; color: #154360; }
+  .obs-familiar { background: #d6eaf8; color: #1a5276; }
   .obs-saude { background: #f8d7da; color: #721c24; }
   .obs-text { color: var(--cinza-text); line-height: 1.5; }
 
@@ -607,7 +647,7 @@
   .turma-info-bar {
     display: flex; align-items: center; gap: 16px;
     background: var(--azul-light);
-    border: 1px solid rgba(26,82,118,0.15);
+    border: 1px solid rgba(36,113,163,0.15);
     border-radius: 10px;
     padding: 12px 18px;
     font-size: 0.78rem;
@@ -615,7 +655,7 @@
   .turma-info-item { display: flex; align-items: center; gap: 5px; }
   .turma-info-label { color: var(--cinza-mid); }
   .turma-info-value { font-weight: 600; color: var(--azul-principal); }
-  .turma-info-divider { width: 1px; height: 20px; background: rgba(26,82,118,0.2); }
+  .turma-info-divider { width: 1px; height: 20px; background: rgba(36,113,163,0.2); }
 
   /* PROGRESSO BIMESTRAL */
   .bimestre-tabs {
@@ -643,18 +683,18 @@
 
   /* MEDIA FINAL DESTAQUE */
   .mf-destaque {
-    background: linear-gradient(135deg, #eaf2fb 0%, #eaf2fb 100%);
-    border: 2px solid rgba(26,82,118,0.15);
+    background: linear-gradient(135deg, #ebf5fb 0%, #ebf5fb 100%);
+    border: 2px solid rgba(36,113,163,0.15);
   }
   .mf-col-final {
-    background: rgba(26,82,118,0.06);
-    border-left: 2px solid rgba(26,82,118,0.15);
+    background: rgba(36,113,163,0.06);
+    border-left: 2px solid rgba(36,113,163,0.15);
   }
 
   /* ===== BACKUP / EXPORT-IMPORT ===== */
   .backup-info-box {
     background: var(--azul-light);
-    border: 1px solid rgba(26,82,118,0.2);
+    border: 1px solid rgba(36,113,163,0.2);
     border-radius: 10px;
     padding: 14px 16px;
     font-size: 0.80rem;
@@ -674,10 +714,7 @@
   .import-preview-card .pi-row { display:flex; gap:8px; }
   .import-preview-card .pi-label { color: var(--cinza-mid); min-width:120px; }
   .import-preview-card .pi-value { font-weight:600; color: var(--azul-principal); }
-  .btn-header.export-btn { background: rgba(201,151,43,0.25); border-color: rgba(201,151,43,0.5); }
-  .btn-header.export-btn:hover { background: rgba(201,151,43,0.4); }
-  .btn-header.import-btn { background: rgba(30,95,166,0.2); border-color: rgba(30,95,166,0.4); }
-  .btn-header.import-btn:hover { background: rgba(30,95,166,0.35); }
+  /* estilos export-btn/import-btn migrados para .backup e .nuvem */
 
 
   /* Coluna de recuperação bimestral */
@@ -807,7 +844,7 @@
   }
   .ano-tag {
     background: var(--azul-light); color: var(--azul-principal);
-    border: 1px solid rgba(26,82,118,0.25);
+    border: 1px solid rgba(36,113,163,0.25);
     font-size: 0.68rem; font-weight: 600;
     padding: 2px 9px; border-radius: 20px;
   }
@@ -998,7 +1035,7 @@
   .perfil-card:hover { border-color: var(--azul-principal); background: var(--azul-light); }
   .perfil-card.ativo {
     border-color: var(--azul-principal); background: var(--azul-light);
-    box-shadow: 0 0 0 2px rgba(26,82,118,0.15);
+    box-shadow: 0 0 0 2px rgba(36,113,163,0.15);
   }
   .perfil-card-icon { font-size: 1.4rem; flex-shrink: 0; }
   .perfil-card-info { flex: 1; overflow: hidden; }
@@ -1050,10 +1087,7 @@
 
 
   /* ===== EXPORTAR TODAS / CARREGAR DA NUVEM ===== */
-  .btn-header.all-export { background: rgba(201,151,43,0.3); border-color: rgba(201,151,43,0.6); }
-  .btn-header.all-export:hover { background: rgba(201,151,43,0.5); }
-  .btn-header.cloud-load { background: rgba(30,95,166,0.3); border-color: rgba(30,95,166,0.5); }
-  .btn-header.cloud-load:hover { background: rgba(30,95,166,0.5); }
+  /* estilos all-export/cloud-load migrados para .backup e .nuvem */
 
   .cloud-load-perfil {
     display: flex; align-items: center; gap: 10px;
@@ -1094,30 +1128,49 @@
       <div class="escola-sub" id="headerSubEscola">Rede Municipal de Ensino · Juruá — Amazonas · Ano Letivo 2026</div>
     </div>
     <div class="header-actions">
-      <!-- Seletor de escola ativo -->
+
+      <!-- Seletor de escola -->
       <div class="escola-switcher" onclick="openModal('modalSeletor')" title="Trocar de escola">
         <span class="escola-switcher-icon">🏫</span>
         <div class="escola-switcher-info">
           <div class="escola-switcher-nome" id="switcherNome">Escola Municipal São José</div>
-          <div class="escola-switcher-hint">Clique para trocar de escola</div>
+          <div class="escola-switcher-hint">Trocar de escola</div>
         </div>
         <span class="escola-switcher-arrow">▼</span>
       </div>
-      <!-- Indicador online/offline + status sincronização -->
-      <div id="syncStatus" class="sync-status" title="Status de sincronização com Google Sheets">
+
+      <div class="btn-group-sep"></div>
+
+      <!-- Grupo 1: Cadastro -->
+      <button class="btn-header cadastro" onclick="openModal('modalAluno')" title="Cadastrar novo aluno">➕ Aluno</button>
+      <button class="btn-header cadastro" onclick="openModal('modalObs')"   title="Registrar observação">📝 Observação</button>
+      <button class="btn-header cadastro" onclick="openModal('modalEscola')" title="Configurar dados da escola">⚙️ Escola</button>
+
+      <div class="btn-group-sep"></div>
+
+      <!-- Grupo 2: Backup -->
+      <button class="btn-header backup" onclick="exportarDados()"            title="Exportar backup desta escola">📤 Exportar</button>
+      <button class="btn-header backup" onclick="exportarTodasEscolas()"     title="Exportar todas as escolas">📦 Todas</button>
+      <button class="btn-header backup" onclick="document.getElementById('inputImportar').click()" title="Importar backup JSON">📥 Importar</button>
+      <input type="file" id="inputImportar" accept=".json" style="display:none" onchange="importarDados(event)">
+
+      <div class="btn-group-sep"></div>
+
+      <!-- Grupo 3: Nuvem -->
+      <button class="btn-header nuvem" onclick="openModal('modalCarregarNuvem')" title="Carregar dados do Google Sheets">☁️ Carregar</button>
+      <button class="btn-header nuvem" onclick="sincronizarAgora()" id="btnSync"  title="Sincronizar com Google Sheets">🔄 Sincronizar</button>
+
+      <div class="btn-group-sep"></div>
+
+      <!-- Status de sincronização -->
+      <div id="syncStatus" class="sync-status" title="Status de conexão">
         <span id="syncDot" class="sync-dot offline"></span>
         <span id="syncLabel">Offline</span>
       </div>
-      <button class="btn-header" onclick="openModal('modalAluno')">➕ Novo Aluno</button>
-      <button class="btn-header" onclick="openModal('modalObs')">📝 Observação</button>
-      <button class="btn-header" onclick="openModal('modalEscola')" title="Configurar escola">⚙️ Escola</button>
-      <button class="btn-header" onclick="exportarDados()" title="Exportar backup desta escola">📤 Exportar</button>
-      <button class="btn-header all-export" onclick="exportarTodasEscolas()" title="Exportar todas as escolas em um único arquivo">📦 Exportar Todas</button>
-      <button class="btn-header" onclick="document.getElementById('inputImportar').click()" title="Importar backup JSON (uma ou todas as escolas)">📥 Importar</button>
-      <input type="file" id="inputImportar" accept=".json" style="display:none" onchange="importarDados(event)">
-      <button class="btn-header cloud-load" onclick="openModal('modalCarregarNuvem')" title="Carregar dados do Google Sheets">☁️ Carregar</button>
-      <button class="btn-header" onclick="sincronizarAgora()" id="btnSync" title="Sincronizar com Google Sheets agora">🔄 Sincronizar</button>
-      <button class="btn-header primary" onclick="salvarTudo()">💾 Salvar</button>
+
+      <!-- Salvar (destaque) -->
+      <button class="btn-header primary" onclick="salvarTudo()" title="Salvar todos os dados">💾 Salvar</button>
+
     </div>
   </div>
 </header>
@@ -1801,7 +1854,7 @@
       <div class="progress-bar-fill" id="cloudProgressBar" style="width:0%"></div>
     </div>
 
-    <div style="background:#eaf2fb;border-radius:8px;padding:10px 14px;font-size:0.75rem;color:#154360;line-height:1.6;margin-bottom:4px">
+    <div style="background:#ebf5fb;border-radius:8px;padding:10px 14px;font-size:0.75rem;color:#1a5276;line-height:1.6;margin-bottom:4px">
       💡 <strong>Como funciona:</strong> O sistema lê os dados do Google Sheets desta escola e os restaura aqui.
       Os dados locais desta escola serão <strong>substituídos</strong> pelos dados da nuvem.
     </div>
@@ -2493,7 +2546,7 @@ function renderTurmasRapidas() {
         <span class="badge">${count}</span>
         <span style="position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;gap:3px" onclick="event.stopPropagation()">
           <button onclick="abrirEditarTurma(${t.id})" title="Editar turma"
-            style="border:none;background:rgba(26,82,118,0.12);color:var(--azul-principal);width:22px;height:22px;border-radius:4px;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center">✏️</button>
+            style="border:none;background:rgba(36,113,163,0.12);color:var(--azul-principal);width:22px;height:22px;border-radius:4px;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center">✏️</button>
           <button onclick="excluirTurma(${t.id})" title="Excluir turma"
             style="border:none;background:rgba(192,57,43,0.10);color:var(--vermelho);width:22px;height:22px;border-radius:4px;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center">🗑️</button>
         </span>
@@ -2638,9 +2691,9 @@ function renderFrequencia() {
       <td class="left"><span class="matricula">${a.matricula}</span></td>
       ${diasShow.map(d => {
         const v = frequencia[a.id][mes][d] || 'P';
-        const cor = v === 'P' ? '#21618c' : v === 'F' ? '#c0392b' : '#b8860b';
+        const cor = v === 'P' ? '#2e86c1' : v === 'F' ? '#c0392b' : '#b8860b';
         return `<td>
-          <button onclick="toggleFreq(${a.id},${mes},${d})" style="border:none;background:${v==='P'?'#eaf2fb':v==='F'?'#f8d7da':'#fff3cd'};color:${cor};width:26px;height:26px;border-radius:5px;font-weight:700;font-size:0.72rem;cursor:pointer;transition:all 0.15s" data-tip="${v==='P'?'Presente':v==='F'?'Falta':'Justificada'}">${v}</button>
+          <button onclick="toggleFreq(${a.id},${mes},${d})" style="border:none;background:${v==='P'?'#ebf5fb':v==='F'?'#f8d7da':'#fff3cd'};color:${cor};width:26px;height:26px;border-radius:5px;font-weight:700;font-size:0.72rem;cursor:pointer;transition:all 0.15s" data-tip="${v==='P'?'Presente':v==='F'?'Falta':'Justificada'}">${v}</button>
         </td>`;
       }).join('')}
       <td>
@@ -2771,7 +2824,7 @@ function renderNotas() {
   if (seg === 'EI') { // Apenas Educação Infantil pura (não EIEF)
     const niveisEI = ['NS — Não Satisfatório', 'PS — Parcialmente Satisfatório', 'S — Satisfatório', 'PD — Plenamente Desenvolvido'];
     let html = `
-      <div style="padding:12px 16px 4px;font-size:0.75rem;background:#eaf2fb;border-bottom:1px solid #aed6f1;color:#154360;line-height:1.6">
+      <div style="padding:12px 16px 4px;font-size:0.75rem;background:#ebf5fb;border-bottom:1px solid #aed6f1;color:#1a5276;line-height:1.6">
         🌱 <strong>Educação Infantil — Avaliação Qualitativa</strong><br>
         Conforme a BNCC e a LDB, a Educação Infantil não utiliza notas nem reprova. O desenvolvimento da criança é registrado por meio de
         descritores qualitativos nos cinco Campos de Experiência, observando suas interações, brincadeiras e vivências.
@@ -2819,7 +2872,7 @@ function renderNotas() {
   let html = `<table><thead>
     <tr>
       <th class="left" rowspan="2" style="min-width:170px;vertical-align:middle">Aluno</th>
-      ${discs.map(d => `<th colspan="2" data-tip="${d}" style="min-width:120px;border-bottom:1px solid rgba(26,82,118,0.15)">${d.length > 10 ? d.substr(0,9)+'…' : d}</th>`).join('')}
+      ${discs.map(d => `<th colspan="2" data-tip="${d}" style="min-width:120px;border-bottom:1px solid rgba(36,113,163,0.15)">${d.length > 10 ? d.substr(0,9)+'…' : d}</th>`).join('')}
       <th rowspan="2" style="vertical-align:middle;min-width:80px">${mediaLabel}</th>
     </tr>
     <tr>
@@ -2896,7 +2949,7 @@ function renderNotas() {
     html = `<table><thead>
       <tr>
         <th class="left" rowspan="2" style="min-width:170px;vertical-align:middle">Aluno</th>
-        ${discHeader.map(d=>`<th colspan="2" data-tip="${d}" style="min-width:120px;border-bottom:1px solid rgba(26,82,118,0.15)">${d.length>10?d.substr(0,9)+'…':d}</th>`).join('')}
+        ${discHeader.map(d=>`<th colspan="2" data-tip="${d}" style="min-width:120px;border-bottom:1px solid rgba(36,113,163,0.15)">${d.length>10?d.substr(0,9)+'…':d}</th>`).join('')}
         <th rowspan="2" style="vertical-align:middle;min-width:80px">${mALabel}</th>
       </tr>
       <tr>
@@ -2994,7 +3047,7 @@ function renderMediasFinal() {
     }
 
     let html = `
-      <div style="padding:10px 16px 4px;font-size:0.73rem;background:#eaf2fb;border-bottom:1px solid #aed6f1;color:#154360">
+      <div style="padding:10px 16px 4px;font-size:0.73rem;background:#ebf5fb;border-bottom:1px solid #aed6f1;color:#1a5276">
         🌱 <strong>Educação Infantil — Parecer Descritivo Final</strong> · Síntese dos registros dos quatro bimestres nos Campos de Experiência
       </div>
       <table class="mf-table"><thead><tr>
@@ -3222,14 +3275,14 @@ function renderRelatorio() {
     const cells = discs.map(d => {
       const mf = calcMediaFinal(a.id, d);
       if (mf !== null) { soma += mf; count++; }
-      const cor = mf === null ? '#999' : mf >= 5 ? '#154360' : mf >= 3 ? '#856404' : '#721c24';
+      const cor = mf === null ? '#999' : mf >= 5 ? '#2471a3' : mf >= 3 ? '#856404' : '#721c24';
       return `<td style="padding:6px;text-align:center;border:1px solid #ddd;font-weight:600;color:${cor}">${mf !== null ? mf.toFixed(1) : '—'}</td>`;
     }).join('');
 
     const media = count ? soma/count : null;
     const freq = getFreqAluno(a.id);
     const sit = !count ? '—' : freq.pct < 75 ? 'Rep. Faltas' : media >= 5 ? 'Aprovado' : media >= 3 ? 'Rec. Final' : 'Reprovado';
-    const sitColor = sit === 'Aprovado' ? '#154360' : sit === 'Rec. Final' ? '#856404' : '#721c24';
+    const sitColor = sit === 'Aprovado' ? '#2471a3' : sit === 'Rec. Final' ? '#856404' : '#721c24';
 
     html += `<tr>
       <td style="padding:6px 10px;border:1px solid #ddd">${a.nome}</td>
@@ -3822,12 +3875,12 @@ function renderRelatorioDiario() {
     datas.forEach(function(data) {
       var dataFmt = data.split('-').reverse().join('/');
       html += '<div style="margin-bottom:16px;page-break-inside:avoid">';
-      html += '<div style="background:#eaf2fb;padding:6px 12px;border-radius:4px;font-weight:700;font-size:0.82rem;margin-bottom:8px">\uD83D\uDCC5 ' + dataFmt + '</div>';
+      html += '<div style="background:#ebf5fb;padding:6px 12px;border-radius:4px;font-weight:700;font-size:0.82rem;margin-bottom:8px">\uD83D\uDCC5 ' + dataFmt + '</div>';
       grupo.discs.forEach(function(disc) {
         var e = (gd[data] || {})[disc];
         if (!e || !e.conteudo) return;
         html += '<div style="margin-left:12px;margin-bottom:10px;border-left:3px solid #aed6f1;padding-left:10px">';
-        html += '<div style="font-weight:700;font-size:0.80rem;color:#1a5276;margin-bottom:4px">' + disc + '</div>';
+        html += '<div style="font-weight:700;font-size:0.80rem;color:#2471a3;margin-bottom:4px">' + disc + '</div>';
         if (e.conteudo)  html += '<div style="font-size:0.78rem;margin-bottom:3px"><strong>Conte\u00FAdo:</strong> ' + escHtml(e.conteudo) + '</div>';
         if (e.objetivo)  html += '<div style="font-size:0.78rem;margin-bottom:3px"><strong>Objetivos/Habilidades:</strong> ' + escHtml(e.objetivo) + '</div>';
         if (e.recursos)  html += '<div style="font-size:0.78rem;margin-bottom:3px"><strong>Recursos Did\u00E1ticos:</strong> ' + escHtml(e.recursos) + '</div>';
